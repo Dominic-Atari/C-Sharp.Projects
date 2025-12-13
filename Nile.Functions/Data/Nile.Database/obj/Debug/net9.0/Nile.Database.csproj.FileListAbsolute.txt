@@ -1,0 +1,16 @@
+c:\Users\Dominic\C#.Projects\NileApp\Nile.Functions\Data\Nile.Database\bin\Debug\net9.0\Nile.Database.deps.json
+c:\Users\Dominic\C#.Projects\NileApp\Nile.Functions\Data\Nile.Database\bin\Debug\net9.0\Nile.Database.runtimeconfig.json
+c:\Users\Dominic\C#.Projects\NileApp\Nile.Functions\Data\Nile.Database\bin\Debug\net9.0\Nile.Database.dll
+c:\Users\Dominic\C#.Projects\NileApp\Nile.Functions\Data\Nile.Database\bin\Debug\net9.0\Nile.Database.pdb
+c:\Users\Dominic\C#.Projects\NileApp\Nile.Functions\Data\Nile.Database\bin\Debug\net9.0\Nile.Common.dll
+c:\Users\Dominic\C#.Projects\NileApp\Nile.Functions\Data\Nile.Database\bin\Debug\net9.0\Nile.Common.pdb
+c:\Users\Dominic\C#.Projects\NileApp\Nile.Functions\Data\Nile.Database\obj\Debug\net9.0\Nile.Database.csproj.AssemblyReference.cache
+c:\Users\Dominic\C#.Projects\NileApp\Nile.Functions\Data\Nile.Database\obj\Debug\net9.0\Nile.Database.GeneratedMSBuildEditorConfig.editorconfig
+c:\Users\Dominic\C#.Projects\NileApp\Nile.Functions\Data\Nile.Database\obj\Debug\net9.0\Nile.Database.csproj.CoreCompileInputs.cache
+c:\Users\Dominic\C#.Projects\NileApp\Nile.Functions\Data\Nile.Database\obj\Debug\net9.0\Nile.Database.sourcelink.json
+c:\Users\Dominic\C#.Projects\NileApp\Nile.Functions\Data\Nile.Database\obj\Debug\net9.0\Nile.Dat.0E394FF6.Up2Date
+c:\Users\Dominic\C#.Projects\NileApp\Nile.Functions\Data\Nile.Database\obj\Debug\net9.0\Nile.Database.dll
+c:\Users\Dominic\C#.Projects\NileApp\Nile.Functions\Data\Nile.Database\obj\Debug\net9.0\refint\Nile.Database.dll
+c:\Users\Dominic\C#.Projects\NileApp\Nile.Functions\Data\Nile.Database\obj\Debug\net9.0\Nile.Database.pdb
+c:\Users\Dominic\C#.Projects\NileApp\Nile.Functions\Data\Nile.Database\obj\Debug\net9.0\Nile.Database.genruntimeconfig.cache
+c:\Users\Dominic\C#.Projects\NileApp\Nile.Functions\Data\Nile.Database\obj\Debug\net9.0\ref\Nile.Database.dll

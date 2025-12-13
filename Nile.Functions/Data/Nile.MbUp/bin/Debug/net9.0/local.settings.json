@@ -1,0 +1,16 @@
+{
+  "AppSettings": {
+    "Azure": {
+      "StorageAccountUri": "https://stniledev.blob.core.windows.net/",
+      "ServiceBusUrl": "sb-nile-dev.servicebus.windows.net"
+    },
+    "Environment": "Local"
+  },
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=localhost; TrustServerCertificate=True; Initial Catalog=NileDb; Integrated Security=True;Encrypt=False;"
+  },
+  "Values": {
+    "SqlServerConnectionString": "Server=localhost; TrustServerCertificate=True; Initial Catalog=NileDb; Integrated Security=True;Encrypt=False;"
+  },
+  "IsEncrypted": false
+}

@@ -1,0 +1,21 @@
+# Node and Angular build artifacts
+/App/.angular/
+/App/node_modules/
+/.angular/
+node_modules/
+
+# macOS
+.DS_Store
+
+# Logs
+*.log
+npm-debug.log*
+
+# Local env / secrets
+.env
+local.settings.json
+secrets.json
+src/environments/environment.ts
+
+# IDE
+.idea/

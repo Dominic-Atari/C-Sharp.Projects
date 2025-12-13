@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\Nile.Common\Nile.Common.csproj" />
+    <ProjectReference Include="..\..\Accessors\Nile.Accessors\Nile.Accessors.csproj" />
+    <ProjectReference Include="..\..\Data\Nile.Database\Nile.Database.csproj" />
+    <ProjectReference Include="..\..\Engines\Nile.Engines\Nile.Engines.csproj" />
+    <ProjectReference Include="..\..\Nile.Utilities\Nile.Utilities.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="15.1.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "com.example.nileclient.app-mergeDebugResources-36:/layout/list_item_post.xml",
+        "source": "com.example.nileclient.app-main-39:/layout/list_item_post.xml"
+    },
+    {
+        "merged": "com.example.nileclient.app-mergeDebugResources-36:/layout/activity_main.xml",
+        "source": "com.example.nileclient.app-main-39:/layout/activity_main.xml"
+    }
+]

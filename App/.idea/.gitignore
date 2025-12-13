@@ -1,0 +1,39 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+# Rider ignored files
+/modules.xml
+/projectSettingsUpdater.xml
+/.idea.App.iml
+/contentModel.xml
+# Ignored default folder with query files
+/queries/
+# Datasource local storage ignored files
+/dataSources/
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/
+
+### Project-level ignores added by assistant ###
+# Ignore local environment and secret files
+/.env
+.env.*
+local.settings.json
+secrets.json
+
+# Ignore environment file that may contain dev keys (keep template committed instead)
+src/environments/environment.ts
+
+# Private keys / certs
+*.pem
+*.key
+*.p12
+*.jks
+
+# If any of these sensitive files were already committed, run the commands below from your repository root to remove them from git while keeping them locally:
+# git rm --cached src/environments/environment.ts
+# git rm --cached local.settings.json
+# git rm --cached .env
+# git rm --cached secrets.json
+# git commit -m "chore: remove sensitive local config from repo"
+# git push

@@ -1,0 +1,182 @@
+<ion-header translucent="true">
+  <ion-toolbar>
+    <ion-title>Head Teacher Dashboard</ion-title>
+    <ion-button slot="end" fill="clear" color="medium" (click)="logout()">
+      <ion-icon name="log-out-outline"></ion-icon>
+      Sign out
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen="true" class="dash-shell">
+  <section class="summary">
+    <div class="pill">
+      <ion-icon name="school-outline"></ion-icon>
+      <span>School ID</span>
+      <strong>{{ auth?.schoolId || '—' }}</strong>
+    </div>
+    <div class="pill">
+      <ion-icon name="person-add-outline"></ion-icon>
+      <span>User</span>
+      <strong>{{ auth?.username || '—' }}</strong>
+    </div>
+  </section>
+
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size="12" sizeMd="6">
+        <ion-card class="panel">
+          <ion-card-content>
+            <p class="panel-title">Create subject</p>
+            <form [formGroup]="subjectForm" (ngSubmit)="createSubject()" class="form-grid">
+              <ion-item>
+                <ion-label position="stacked">Name</ion-label>
+                <ion-input formControlName="name"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="stacked">Stage</ion-label>
+                <ion-select formControlName="stage">
+                  <ion-select-option *ngFor="let s of stages" [value]="s.value">{{ s.label }}</ion-select-option>
+                </ion-select>
+              </ion-item>
+              <ion-item>
+                <ion-label position="stacked">Description</ion-label>
+                <ion-input formControlName="description"></ion-input>
+              </ion-item>
+              <ion-button type="submit" expand="block" [disabled]="busy">Create subject</ion-button>
+            </form>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col size="12" sizeMd="6">
+        <ion-card class="panel">
+          <ion-card-content>
+            <p class="panel-title">Create teacher</p>
+            <form [formGroup]="teacherForm" (ngSubmit)="createTeacher()" class="form-grid">
+              <ion-item *ngFor="let field of ['username','password','firstName','lastName']">
+                <ion-label position="stacked">{{ field }}</ion-label>
+                <ion-input [type]="field === 'password' ? 'password' : 'text'" [formControlName]="field"></ion-input>
+              </ion-item>
+              <ion-button type="submit" expand="block" [disabled]="busy">Create teacher</ion-button>
+            </form>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="12" sizeMd="6">
+        <ion-card class="panel">
+          <ion-card-content>
+            <p class="panel-title">Create student</p>
+            <form [formGroup]="studentForm" (ngSubmit)="createStudent()" class="form-grid">
+              <ion-item *ngFor="let field of ['username','password','firstName','lastName']">
+                <ion-label position="stacked">{{ field }}</ion-label>
+                <ion-input [type]="field === 'password' ? 'password' : 'text'" [formControlName]="field"></ion-input>
+              </ion-item>
+              <ion-button type="submit" expand="block" [disabled]="busy">Create student</ion-button>
+            </form>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col size="12" sizeMd="6">
+        <ion-card class="panel">
+          <ion-card-content>
+            <p class="panel-title">Assign teacher to subject</p>
+            <form [formGroup]="assignForm" (ngSubmit)="assignTeacher()" class="form-grid">
+              <ion-item>
+                <ion-label position="stacked">Teacher</ion-label>
+                <ion-select formControlName="teacherId" interface="popover" (ionFocus)="onTeacherSelectOpen()">
+                  <ion-select-option *ngIf="teachersLoading" disabled>Loading teachers...</ion-select-option>
+                  <ion-select-option *ngIf="teachersError" disabled>Error: {{ teachersError }}</ion-select-option>
+                  <ion-select-option *ngFor="let t of teachers" [value]="t.userId">
+                    {{ t.username }}<span *ngIf="t.firstName"> — {{ t.firstName }} {{ t.lastName }}</span>
+                  </ion-select-option>
+                </ion-select>
+              </ion-item>
+              <ion-item>
+                <ion-label position="stacked">Subject</ion-label>
+                <ion-select formControlName="subjectId" interface="popover" (ionFocus)="onSubjectSelectOpen()">
+                  <ion-select-option *ngIf="subjectsLoading" disabled>Loading subjects...</ion-select-option>
+                  <ion-select-option *ngIf="subjectsError" disabled>Error: {{ subjectsError }}</ion-select-option>
+                  <ion-select-option *ngFor="let s of subjects" [value]="s.subjectId">{{ s.name }} (stage {{ s.stage }})</ion-select-option>
+                </ion-select>
+              </ion-item>
+              <ion-button type="submit" expand="block" [disabled]="busy">Assign</ion-button>
+            </form>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="12" sizeMd="6">
+        <ion-card class="panel">
+          <ion-card-content>
+            <p class="panel-title">Create course</p>
+            <form [formGroup]="courseForm" (ngSubmit)="createCourse()" class="form-grid">
+              <ion-item>
+                <ion-label position="stacked">Title</ion-label>
+                <ion-input formControlName="title"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="stacked">Summary</ion-label>
+                <ion-input formControlName="summary"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="stacked">Level</ion-label>
+                <ion-input formControlName="level"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="stacked">Subject ID (optional)</ion-label>
+                <ion-input formControlName="subjectId"></ion-input>
+              </ion-item>
+              <ion-button type="submit" expand="block" [disabled]="busy">Create course</ion-button>
+            </form>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col size="12" sizeMd="6">
+        <ion-card class="panel">
+          <ion-card-content>
+            <p class="panel-title">Create lesson</p>
+            <form [formGroup]="lessonForm" (ngSubmit)="createLesson()" class="form-grid">
+              <ion-item>
+                <ion-label position="stacked">Course ID</ion-label>
+                <ion-input formControlName="courseId"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="stacked">Title</ion-label>
+                <ion-input formControlName="title"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="stacked">Body (markdown)</ion-label>
+                <ion-input formControlName="bodyMarkdown"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="stacked">Resource URL</ion-label>
+                <ion-input formControlName="resourceUrl"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="stacked">Order</ion-label>
+                <ion-input type="number" formControlName="order"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="stacked">Duration minutes</ion-label>
+                <ion-input type="number" formControlName="durationMinutes"></ion-input>
+              </ion-item>
+              <ion-button type="submit" expand="block" [disabled]="busy">Create lesson</ion-button>
+            </form>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <div class="feedback" *ngIf="message || error">
+    <ion-text [color]="message ? 'success' : 'danger'">{{ message || error }}</ion-text>
+  </div>
+</ion-content>

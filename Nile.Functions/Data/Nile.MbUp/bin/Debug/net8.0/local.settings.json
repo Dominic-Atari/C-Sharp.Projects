@@ -1,0 +1,6 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "SqlServerConnectionString": "Server=localhost,1433;Database=NileDb;User Id=sa;Password=DevP@ssw0rd!;TrustServerCertificate=true;"
+  }
+}
