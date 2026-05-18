@@ -34,6 +34,10 @@ public class ClientContractsProfile : Profile
         // Add additional maps here as needed, e.g., specific V1.User DTOs
         // User create: Client -> Internal DTO (use profile-specific DTO so profile fields flow through)
         CreateMap<CLI.V1.User.CreateUserProfileRequest, DTO.CreateUserProfileRequest>();
+        CreateMap<CLI.V1.User.UpdateUserProfileRequest, DTO.UpdateUserProfileRequest>();
+        CreateMap<CLI.V1.User.StoreUserProfileImageRequest, DTO.StoreUserProfileImageRequest>();
+        CreateMap<CLI.V1.User.DeleteUserProfileImageRequest, DTO.DeleteUserProfileImageRequest>();
+        CreateMap<CLI.V1.User.StoreNotificationPreferencesRequest, DTO.StoreNotificationPreferencesRequest>();
 
         // User store response: Internal DTO -> Client
         CreateMap<DTO.StoreUserResponseBase, CLI.V1.User.StoreUserResponseBase>();

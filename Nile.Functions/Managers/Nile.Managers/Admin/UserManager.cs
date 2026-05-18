@@ -7,10 +7,23 @@ namespace Nile.Managers.Admin;
 // Other unrelated functionality is commented out per scope reduction request.
 internal partial class AdminManager
 {
-    public Task<Nile.Managers.Contract.Client.DataContract.V1.User.UsernameSuggestionsResponse> GenerateUsernameSuggestions(Nile.Managers.Contract.Client.DataContract.V1.User.UsernameSuggestionsRequest request)
+    public Task<User.UsernameSuggestionsResponse> GenerateUsernameSuggestions(User.UsernameSuggestionsRequest request)
     {
-        // Not part of the requested scope
-        throw new NotImplementedException();
+        // The current request DTO carries no input, so produce non-colliding suggestions
+        // by combining a memorable adjective+noun pair with a numeric suffix. Callers can
+        // refine later with name-derived suggestions once the DTO carries context.
+        var adjectives = new[] { "swift", "calm", "bright", "lively", "kind", "bold", "happy", "merry", "lucky" };
+        var nouns = new[] { "river", "forest", "ember", "comet", "harbor", "meadow", "summit", "lyric", "delta" };
+        var rng = new Random();
+        var suggestions = Enumerable.Range(0, 5)
+            .Select(_ => $"{adjectives[rng.Next(adjectives.Length)]}_{nouns[rng.Next(nouns.Length)]}_{rng.Next(100, 9999)}")
+            .Distinct()
+            .ToArray();
+
+        return Task.FromResult(new User.UsernameSuggestionsResponse
+        {
+            UserNameSuggestions = suggestions
+        });
     }
 
     public Task<Nile.Managers.Contract.Client.DataContract.V1.User.UserContextResponse> Login(Nile.Managers.Contract.Client.DataContract.V1.User.LoginRequest request)
@@ -38,15 +51,31 @@ internal partial class AdminManager
         return cliResp;
     }
 
-    public Task<Nile.Managers.Contract.Client.DataContract.V1.User.StoreUserResponseBase> Store(Nile.Managers.Contract.Client.DataContract.V1.User.StoreUserProfileImageRequest request)
+    public async Task<User.StoreUserResponseBase> Store(User.UpdateUserProfileRequest request)
     {
-        // Not part of the requested scope
-        throw new NotImplementedException();
+        var dtoReq = ClientDtoMapper.Map<DTO.UpdateUserProfileRequest>(request);
+        var dtoResp = await _userAccessor.Store(dtoReq);
+        return ClientDtoMapper.Map<User.StoreUserResponseBase>(dtoResp);
     }
 
-    public Task<Nile.Managers.Contract.Client.DataContract.V1.User.StoreUserResponseBase> Store(Nile.Managers.Contract.Client.DataContract.V1.User.DeleteUserProfileImageRequest request)
+    public async Task<User.StoreUserResponseBase> Store(User.StoreUserProfileImageRequest request)
     {
-        // Not part of the requested scope
-        throw new NotImplementedException();
+        var dtoReq = ClientDtoMapper.Map<DTO.StoreUserProfileImageRequest>(request);
+        var dtoResp = await _userAccessor.Store(dtoReq);
+        return ClientDtoMapper.Map<User.StoreUserResponseBase>(dtoResp);
+    }
+
+    public async Task<User.StoreUserResponseBase> Store(User.DeleteUserProfileImageRequest request)
+    {
+        var dtoReq = ClientDtoMapper.Map<DTO.DeleteUserProfileImageRequest>(request);
+        var dtoResp = await _userAccessor.Store(dtoReq);
+        return ClientDtoMapper.Map<User.StoreUserResponseBase>(dtoResp);
+    }
+
+    public async Task<User.StoreUserResponseBase> Store(User.StoreNotificationPreferencesRequest request)
+    {
+        var dtoReq = ClientDtoMapper.Map<DTO.StoreNotificationPreferencesRequest>(request);
+        var dtoResp = await _userAccessor.Store(dtoReq);
+        return ClientDtoMapper.Map<User.StoreUserResponseBase>(dtoResp);
     }
 }

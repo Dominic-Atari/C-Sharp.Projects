@@ -8,6 +8,8 @@ public class UserProfile
     public string LastName { get; set; } = string.Empty;
     public string? Location { get; set; }
     public string? Bio { get; set; }
+    public string? ProfileImageFilename { get; set; }
+    public string? NotificationPreferencesJson { get; set; }
 
     // Navigation
     public User User { get; set; } = null!;

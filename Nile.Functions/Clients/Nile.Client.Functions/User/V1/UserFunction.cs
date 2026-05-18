@@ -64,24 +64,23 @@ public class UserFunction : FunctionBase
         return await CreateResponse(req, result);
     }
 
-    // /// <summary>
-    // /// Generates and returns username suggestions for a prospective user, based on input constraints.
-    // /// No request body is required; the manager derives suggestions from context or defaults.
-    // /// </summary>
-    // [Function(nameof(UserFunction) + "_" + nameof(GetUsernameSuggestions) + V1Suffix)]
-    // [ContextType(typeof(MobileUserContext))]
-    // [OpenApiOperation(nameof(GetUsernameSuggestions))]
-    // [OpenApiResponseWithBody(System.Net.HttpStatusCode.OK, "application/json", typeof(CLI.V1.User.UsernameSuggestionsResponse))]
-    // public async Task<HttpResponseData> GetUsernameSuggestions(
-    //     [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = RouteBase + "/:usernameSuggestions")]
-    //     HttpRequestData req)
-    // {
-    //     var result = await _userManagerProxy
-    //         .RunWithoutRequestBody<CLI.V1.User.UsernameSuggestionsRequest, CLI.V1.User.UsernameSuggestionsResponse>(
-    //             mgr => mgr.GenerateUsernameSuggestions);
+    /// <summary>
+    /// Generates and returns username suggestions for a prospective user.
+    /// </summary>
+    [Function(nameof(UserFunction) + "_" + nameof(GetUsernameSuggestions) + V1Suffix)]
+    [ContextType(typeof(MobileUserContext))]
+    [OpenApiOperation(nameof(GetUsernameSuggestions))]
+    [OpenApiResponseWithBody(System.Net.HttpStatusCode.OK, "application/json", typeof(CLI.V1.User.UsernameSuggestionsResponse))]
+    public async Task<HttpResponseData> GetUsernameSuggestions(
+        [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = RouteBase + "/:usernameSuggestions")]
+        HttpRequestData req)
+    {
+        var result = await _userManagerProxy
+            .RunWithoutRequestBody<CLI.V1.User.UsernameSuggestionsRequest, CLI.V1.User.UsernameSuggestionsResponse>(
+                mgr => mgr.GenerateUsernameSuggestions);
 
-    //     return await CreateResponse(req, result);
-    // }
+        return await CreateResponse(req, result);
+    }
 
     /// <summary>
     /// Creates a new user profile from the request body and returns the stored profile summary.
@@ -102,97 +101,81 @@ public class UserFunction : FunctionBase
         return await CreateResponse(req, result);
     }
 
-    // /// <summary>
-    // /// Updates an existing user profile (patch/put semantics as defined by the manager) with data from the request body.
-    // /// </summary>
-    // [Function(nameof(UserFunction) + "_" + nameof(UpdateProfile) + V1Suffix)]
-    // [ContextType(typeof(MobileUserContext))]
-    // [OpenApiOperation(nameof(UpdateProfile))]
-    // [OpenApiResponseWithBody(System.Net.HttpStatusCode.OK, "application/json", typeof(CLI.V1.User.StoreUserResponseBase))]
-    // public async Task<HttpResponseData> UpdateProfile(
-    //     [HttpTrigger(AuthorizationLevel.Anonymous, "put", Route = RouteBase + "/profile")]
-    //     HttpRequestData req)
-    // {
-    //     var authHeader = req.Headers.TryGetValues("Authorization", out var vals)
-    //         ? vals.FirstOrDefault()
-    //         : null;
-    //     _contextFactory.BuildContext(typeof(MobileUserContext), authHeader);
-    //     var result = await _userManagerProxy
-    //         .RunWithRequestStream<CLI.V1.User.StoreUserRequestBase, CLI.V1.User.StoreUserResponseBase>(
-    //             mgr => mgr.Store,
-    //             req.Body);
+    /// <summary>
+    /// Updates an existing user profile (FirstName, LastName) for the given Username.
+    /// </summary>
+    [Function(nameof(UserFunction) + "_" + nameof(UpdateProfile) + V1Suffix)]
+    [ContextType(typeof(MobileUserContext))]
+    [OpenApiOperation(nameof(UpdateProfile))]
+    [OpenApiResponseWithBody(System.Net.HttpStatusCode.OK, "application/json", typeof(CLI.V1.User.StoreUserResponseBase))]
+    public async Task<HttpResponseData> UpdateProfile(
+        [HttpTrigger(AuthorizationLevel.Anonymous, "put", Route = RouteBase + "/profile")]
+        HttpRequestData req)
+    {
+        var result = await _userManagerProxy
+            .RunWithRequestStream<CLI.V1.User.UpdateUserProfileRequest, CLI.V1.User.StoreUserResponseBase>(
+                mgr => mgr.Store,
+                req.Body);
 
-    //     return await CreateResponse(req, result);
-    // }
+        return await CreateResponse(req, result);
+    }
 
-    // /// <summary>
-    // /// Stores or replaces the user's profile image. The request body contains the required metadata/payload.
-    // /// </summary>
-    // [Function(nameof(UserFunction) + "_" + nameof(StoreProfileImage) + V1Suffix)]
-    // [ContextType(typeof(MobileUserContext))]
-    // [OpenApiOperation(nameof(StoreProfileImage))]
-    // [OpenApiResponseWithBody(System.Net.HttpStatusCode.OK, "application/json", typeof(CLI.V1.User.StoreUserResponseBase))]
-    // public async Task<HttpResponseData> StoreProfileImage(
-    //     [HttpTrigger(AuthorizationLevel.Anonymous, "put", Route = RouteBase + "/profile/image")]
-    //     HttpRequestData req)
-    // {
-    //     var authHeader = req.Headers.TryGetValues("Authorization", out var vals)
-    //         ? vals.FirstOrDefault()
-    //         : null;
-    //     _contextFactory.BuildContext(typeof(MobileUserContext), authHeader);
-    //     var result = await _userManagerProxy
-    //         .RunWithRequestStream<CLI.V1.User.StoreUserProfileImageRequest, CLI.V1.User.StoreUserResponseBase>(
-    //             mgr => mgr.Store,
-    //             req.Body);
+    /// <summary>
+    /// Stores or replaces the user's profile image filename. The image content itself is uploaded
+    /// out-of-band via a SAS token; this endpoint only persists the resulting filename reference.
+    /// </summary>
+    [Function(nameof(UserFunction) + "_" + nameof(StoreProfileImage) + V1Suffix)]
+    [ContextType(typeof(MobileUserContext))]
+    [OpenApiOperation(nameof(StoreProfileImage))]
+    [OpenApiResponseWithBody(System.Net.HttpStatusCode.OK, "application/json", typeof(CLI.V1.User.StoreUserResponseBase))]
+    public async Task<HttpResponseData> StoreProfileImage(
+        [HttpTrigger(AuthorizationLevel.Anonymous, "put", Route = RouteBase + "/profile/image")]
+        HttpRequestData req)
+    {
+        var result = await _userManagerProxy
+            .RunWithRequestStream<CLI.V1.User.StoreUserProfileImageRequest, CLI.V1.User.StoreUserResponseBase>(
+                mgr => mgr.Store,
+                req.Body);
 
-    //     return await CreateResponse(req, result);
-    // }
+        return await CreateResponse(req, result);
+    }
 
-    // /// <summary>
-    // /// Deletes the current user's profile image, if present.
-    // /// </summary>
-    // [Function(nameof(UserFunction) + "_" + nameof(DeleteProfileImage) + V1Suffix)]
-    // [ContextType(typeof(MobileUserContext))]
-    // [OpenApiOperation(nameof(DeleteProfileImage))]
-    // [OpenApiResponseWithBody(System.Net.HttpStatusCode.OK, "application/json", typeof(CLI.V1.User.StoreUserResponseBase))]
-    // public async Task<HttpResponseData> DeleteProfileImage(
-    //     [HttpTrigger(AuthorizationLevel.Anonymous, "delete", Route = RouteBase + "/profile/image")]
-    //     HttpRequestData req)
-    // {
-    //     var authHeader = req.Headers.TryGetValues("Authorization", out var vals)
-    //         ? vals.FirstOrDefault()
-    //         : null;
-    //     _contextFactory.BuildContext(typeof(MobileUserContext), authHeader);
-    //     var result = await _userManagerProxy
-    //         .RunWithoutRequestBody<CLI.V1.User.DeleteUserProfileImageRequest, CLI.V1.User.StoreUserResponseBase>(
-    //             mgr => mgr.Store);
+    /// <summary>
+    /// Deletes the current user's profile image reference, if present.
+    /// </summary>
+    [Function(nameof(UserFunction) + "_" + nameof(DeleteProfileImage) + V1Suffix)]
+    [ContextType(typeof(MobileUserContext))]
+    [OpenApiOperation(nameof(DeleteProfileImage))]
+    [OpenApiResponseWithBody(System.Net.HttpStatusCode.OK, "application/json", typeof(CLI.V1.User.StoreUserResponseBase))]
+    public async Task<HttpResponseData> DeleteProfileImage(
+        [HttpTrigger(AuthorizationLevel.Anonymous, "delete", Route = RouteBase + "/profile/image")]
+        HttpRequestData req)
+    {
+        var result = await _userManagerProxy
+            .RunWithRequestStream<CLI.V1.User.DeleteUserProfileImageRequest, CLI.V1.User.StoreUserResponseBase>(
+                mgr => mgr.Store,
+                req.Body);
 
-    //     return await CreateResponse(req, result);
-    // }
+        return await CreateResponse(req, result);
+    }
 
-    // /// <summary>
-    // /// Stores user settings/preferences. The request body contains the new values to persist.
-    // /// </summary>
-    // [Function(nameof(UserFunction) + "_" + nameof(StoreSettings) + V1Suffix)]
-    // [ContextType(typeof(MobileUserContext))]
-    // [OpenApiOperation(nameof(StoreSettings))]
-    // [OpenApiResponseWithBody(System.Net.HttpStatusCode.OK, "application/json", typeof(CLI.V1.User.StoreUserResponseBase))]
-    // public async Task<HttpResponseData> StoreSettings(
-    //     [HttpTrigger(AuthorizationLevel.Anonymous, "put", Route = RouteBase + "/settings")]
-    //     HttpRequestData req)
-    // {
-    //     var authHeader = req.Headers.TryGetValues("Authorization", out var vals)
-    //         ? vals.FirstOrDefault()
-    //         : null;
-    //     _contextFactory.BuildContext(typeof(MobileUserContext), authHeader);
-    //     var result = await _userManagerProxy
-    //         .RunWithRequestStream<CLI.V1.User.StoreUserRequestBase, CLI.V1.User.StoreUserResponseBase>(
-    //             mgr => mgr.Store,
-    //             req.Body);
+    /// <summary>
+    /// Stores user notification preferences. The request body carries the new boolean toggles to persist.
+    /// </summary>
+    [Function(nameof(UserFunction) + "_" + nameof(StoreSettings) + V1Suffix)]
+    [ContextType(typeof(MobileUserContext))]
+    [OpenApiOperation(nameof(StoreSettings))]
+    [OpenApiResponseWithBody(System.Net.HttpStatusCode.OK, "application/json", typeof(CLI.V1.User.StoreUserResponseBase))]
+    public async Task<HttpResponseData> StoreSettings(
+        [HttpTrigger(AuthorizationLevel.Anonymous, "put", Route = RouteBase + "/settings")]
+        HttpRequestData req)
+    {
+        var result = await _userManagerProxy
+            .RunWithRequestStream<CLI.V1.User.StoreNotificationPreferencesRequest, CLI.V1.User.StoreUserResponseBase>(
+                mgr => mgr.Store,
+                req.Body);
 
-    //     return await CreateResponse(req, result);
-    // }
+        return await CreateResponse(req, result);
+    }
 
-    // Social endpoints removed for now (SendFriendRequest, UpdateFriendRequest, GetSentFriendRequests,
-    // GetReceivedFriendRequests, SearchFriendList, SearchUsers, Unfriend, GetUserProfile)
 }
