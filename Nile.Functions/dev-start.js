@@ -61,7 +61,9 @@ async function waitForBackend() {
 }
 
 console.log(`Starting Azure Functions host in ${backendDir}...`);
-backend = spawn('func', ['start'], {
+// --cors "*" makes the host emit Access-Control-Allow-Origin for every dev origin,
+// covering cases where the Angular dev proxy isn't intercepting requests.
+backend = spawn('func', ['start', '--cors', '*'], {
   cwd: backendDir,
   stdio: ['ignore', 'pipe', 'pipe'],
 });
