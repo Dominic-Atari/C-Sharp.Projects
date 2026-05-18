@@ -1,0 +1,404 @@
+.feed-page {
+  --ion-background-color: #0b1020;
+  --page-pad: 18px;
+
+  ion-content {
+    --background: radial-gradient(circle at 20% 20%, #0f172a, #0b1020 55%, #0a0d1a 100%);
+    padding: var(--page-pad);
+  }
+
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 18px;
+    background: linear-gradient(135deg, #4338ca, #7c3aed, #312e81);
+    color: #e8e9ff;
+    border-radius: 22px;
+    padding: 39px 33px;
+    min-height: 165px;
+    box-shadow: 0 24px 50px rgba(67, 56, 202, 0.3);
+    margin: 21px 0 33px;
+  }
+
+  .school-header[role="button"] {
+    cursor: pointer;
+  }
+
+  .school-header[role="button"]:hover {
+    transform: translateY(-2px);
+  }
+
+  .hero-text h1 {
+    margin: 4px 0 8px;
+    font-size: 22px;
+  }
+
+  .hero {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 18px;
+    background: linear-gradient(135deg, #4338ca, #7c3aed, #312e81);
+    color: #e8e9ff;
+    border-radius: 22px;
+    padding: 39px 33px;
+    min-height: 165px;
+    box-shadow: 0 24px 50px rgba(67, 56, 202, 0.3);
+    margin: 21px 0 33px;
+    align-items: center;
+  }
+
+  .chip-soft {
+    --background: rgba(255, 255, 255, 0.12);
+    --color: #f8fafc;
+    backdrop-filter: blur(6px);
+    padding: 12px 18px;
+    font-weight: 700;
+    font-size: 16px;
+  }
+
+  .hero-cta {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    text-align: right;
+  }
+
+  .school-header[role="button"] {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .logo {
+    width: 114px;
+    height: 114px;
+    border-radius: 18px;
+    overflow: hidden;
+    display: grid;
+    place-items: center;
+    background: linear-gradient(145deg, #6366f1, #a855f7);
+    color: #fff;
+    font-weight: 700;
+  }
+
+  .logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .logo-initials { font-size: 42px; }
+
+  .school-name { margin: 0; font-size: 30px; }
+  .school-county { margin: 6px 0 0; font-size: 19px; color: rgba(226,232,240,0.95); }
+
+  .center { display: flex; align-items: center; justify-content: center; }
+  .admin-label { color: #e6eaf0; font-size: 20px; }
+
+  .hero-cta ion-button {
+    --background: #f97316;
+    --background-activated: #ea580c;
+    --color: #0f172a;
+    font-weight: 700;
+  }
+
+  .cta-note {
+    margin: 0;
+    color: #e2e8f0;
+    font-size: 12px;
+  }
+
+  .rooms {
+    margin: 6px 0 12px;
+  }
+
+  .levels {
+    margin: 6px 0 16px;
+    min-height: 120px; /* ensure section doesn't collapse when contents are short or loading */
+  }
+
+  .levels-grid {
+    display: block;
+  }
+
+  /* Ensure grid spacing and center content on narrow screens */
+  .levels-grid ion-row {
+    gap: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .level-card {
+    --background: #0f172a;
+    --color: #e5e7eb;
+    border-radius: 12px;
+    padding: 16px 18px;
+    box-shadow: 0 10px 24px rgba(0,0,0,0.28);
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    min-height: 120px; /* give cards a stable height */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 8px;
+    text-align: left;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .level-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 40px rgba(0,0,0,0.36);
+  }
+
+  .level-actions {
+    margin-top: 8px;
+  }
+
+  .level-actions a {
+    color: #a78bfa;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .level-perf-btn {
+    margin-top: 10px;
+    --border-color: rgba(167,139,250,0.18);
+    --color: #a78bfa;
+    font-weight: 700;
+  }
+
+  .feed-page   .level-manage-btn {
+    margin-top: 8px;
+    --color: #2563eb; /* blue-600 */
+    font-weight: 700;
+  }
+
+  .level-card:focus {
+    outline: 3px solid rgba(167,139,250,0.18);
+    outline-offset: 4px;
+  }
+
+  .level-card h3 {
+    margin: 0 0 6px 0;
+    font-size: 18px;
+    line-height: 1.2;
+    color: #f1f5f9;
+    word-break: break-word;
+  }
+
+  .level-card p.muted {
+    margin: 0;
+    color: #9ca3af;
+    font-size: 13px;
+    line-height: 1.4;
+  }
+
+  @media (max-width: 480px) {
+    .level-card { padding: 14px; min-height: 110px; text-align: center; align-items: center; }
+    .levels-grid ion-row { gap: 10px; }
+    .level-card h3 { font-size: 16px; }
+  }
+
+  /* Small tweak to ensure performance button is easy to tap and separated */
+  .level-perf-btn { margin-top: 12px; }
+
+  .section-title {
+    color: #e2e8f0;
+    font-weight: 600;
+    margin: 0 0 8px;
+  }
+
+  .room-scroll {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 72%;
+    gap: 10px;
+    overflow-x: auto;
+    padding-bottom: 6px;
+  }
+
+  .room-card {
+    --background: #111827;
+    --color: #e5e7eb;
+    border-radius: 16px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .room-card.selected {
+    outline: 2px solid #a78bfa;
+    transform: translateY(-2px);
+  }
+
+  .room-card h3 {
+    margin: 2px 0 10px;
+    font-size: 16px;
+  }
+
+  .room-cat {
+    margin: 0;
+    color: #9ca3af;
+    font-size: 12px;
+  }
+
+  .room-meta {
+    display: flex;
+    gap: 6px;
+  }
+
+  .stories {
+    margin-top: 10px;
+    padding-bottom: 30px;
+  }
+
+  .stories-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+
+  ion-grid {
+    --ion-grid-padding: 0;
+  }
+
+  ion-col {
+    padding: 6px;
+  }
+
+  .story-card {
+    --background: #0f172a;
+    --color: #e5e7eb;
+    border-radius: 16px;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+  }
+
+  .story-top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+
+  .story-top .avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    background: linear-gradient(145deg, #6366f1, #a855f7);
+    display: grid;
+    place-items: center;
+    font-weight: 700;
+    color: #0b1020;
+  }
+
+  .story-meta .name {
+    margin: 0;
+    font-weight: 700;
+    color: #f1f5f9;
+  }
+
+  .story-meta .time {
+    margin: 0;
+    color: #94a3b8;
+    font-size: 13px;
+  }
+
+  .story-actions {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 10px 10px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.06);
+    color: #e5e7eb;
+    font-weight: 600;
+  }
+
+  .pill.ghost {
+    border: 1px dashed rgba(255, 255, 255, 0.12);
+    background: transparent;
+  }
+
+  @media (max-width: 768px) {
+    .hero {
+      grid-template-columns: 1fr;
+      text-align: left;
+    }
+
+    .hero-cta {
+      align-items: center;
+      justify-content: flex-start;
+      text-align: left;
+      gap: 6px;
+    }
+
+    .room-scroll {
+      grid-auto-columns: 78%;
+    }
+  }
+}
+.dash-shell {
+  --background: #0b1120;
+  color: #e2e8f0;
+  padding-bottom: 32px;
+}
+
+.summary {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 16px;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: #0f172a;
+  border: 1px solid #1e293b;
+  border-radius: 12px;
+  color: #cbd5e1;
+}
+
+.panel {
+  background: #0f172a;
+  border: 1px solid #1e293b;
+  border-radius: 16px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+}
+
+.panel-title {
+  margin: 0 0 12px;
+  font-weight: 600;
+  color: #e2e8f0;
+}
+
+form.form-grid {
+  display: grid;
+  gap: 10px;
+}
+
+ion-item {
+  --background: #0b1222;
+  --border-color: #1e293b;
+  border-radius: 12px;
+}
+
+.feedback {
+  padding: 12px 16px 32px;
+}

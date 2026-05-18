@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Create Teacher</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="page-shell">
+  <ion-card title="Create Teacher form">
+    <ion-card-content>
+      <form [formGroup]="form" (ngSubmit)="save()">
+        <ion-item>
+          <ion-label position="stacked">Username</ion-label>
+          <ion-input formControlName="username"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Password</ion-label>
+          <ion-input type="password" formControlName="password"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">First name</ion-label>
+          <ion-input formControlName="firstName"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Last name</ion-label>
+          <ion-input formControlName="lastName"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Stage / Level</ion-label>
+          <ion-select formControlName="stage" (ionChange)="onStageChanged()">
+            <ion-select-option *ngFor="let s of stages" [value]="s.stageId">{{ s.name }}</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <!-- global existing sublevel selector removed to avoid duplicate selection UI -->
+        <ion-item *ngIf="form.get('stage')?.value">
+          <ion-label position="stacked">Sublevel (optional)</ion-label>
+          <ion-select formControlName="subLevelId" placeholder="Select sublevel">
+            <ion-select-option *ngIf="(sublevels || []).length === 0" disabled>No sublevels for selected stage</ion-select-option>
+            <ion-select-option *ngFor="let sl of sublevels" [value]="sl.subLevelId">{{ sl.name }}</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label>Create a subject for this teacher</ion-label>
+          <ion-toggle slot="end" formControlName="addSubject"></ion-toggle>
+        </ion-item>
+        <ion-item *ngIf="form.get('addSubject')?.value">
+          <ion-label position="stacked">Subject name</ion-label>
+          <ion-input formControlName="subjectName"></ion-input>
+        </ion-item>
+        <ion-item *ngIf="form.get('addSubject')?.value">
+          <ion-label position="stacked">Subject description (optional)</ion-label>
+          <ion-input formControlName="subjectDescription"></ion-input>
+        </ion-item>
+        <div style="display:flex;gap:8px;margin-top:12px">
+          <ion-button type="submit" [disabled]="busy" title="Create teacher">Create teacher</ion-button>
+          <ion-button fill="clear" (click)="router.navigateByUrl('/dashboard')" title="Cancel and return to dashboard">Cancel</ion-button>
+        </div>
+      </form>
+      <div *ngIf="message"><ion-text color="success">{{ message }}</ion-text></div>
+      <div *ngIf="error"><ion-text color="danger">{{ error }}</ion-text></div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

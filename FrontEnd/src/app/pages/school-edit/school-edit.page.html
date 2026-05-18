@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Edit School</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="page-shell">
+  <ion-card title="Edit school form">
+    <ion-card-content>
+      <form [formGroup]="form" (ngSubmit)="save()">
+        <ion-item>
+          <ion-label position="stacked">School name</ion-label>
+          <ion-input formControlName="schoolName"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Address</ion-label>
+          <ion-input formControlName="schoolAddress"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">City</ion-label>
+          <ion-input formControlName="city"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">State</ion-label>
+          <ion-input formControlName="state"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Country</ion-label>
+          <ion-input formControlName="country"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">County</ion-label>
+          <ion-input formControlName="county"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Zip code</ion-label>
+          <ion-input formControlName="zipCode"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Phone</ion-label>
+          <ion-input formControlName="phoneNumber"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Email</ion-label>
+          <ion-input formControlName="email"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Description</ion-label>
+          <ion-input formControlName="description"></ion-input>
+        </ion-item>
+        <div style="display:flex;gap:8px;margin-top:12px">
+          <ion-button type="submit" [disabled]="busy" title="Save school changes">Save</ion-button>
+          <ion-button fill="clear" (click)="router.navigateByUrl('/dashboard')" title="Discard changes and return">Cancel</ion-button>
+        </div>
+      </form>
+      <div *ngIf="message"><ion-text color="success">{{ message }}</ion-text></div>
+      <div *ngIf="error"><ion-text color="danger">{{ error }}</ion-text></div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
