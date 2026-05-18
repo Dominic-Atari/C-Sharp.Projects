@@ -1,4 +1,4 @@
--- Add IsDeleted and DeletedAt to dbo.Subjects if missing (mirror for alternate DbUp folder)
+-- Add IsDeleted and DeletedAt to dbo.Subjects if missing
 PRINT 'Applying 016.AddSubjectsIsDeleted.sql - add IsDeleted/DeletedAt to Subjects if missing';
 
 IF OBJECT_ID('dbo.Subjects','U') IS NOT NULL

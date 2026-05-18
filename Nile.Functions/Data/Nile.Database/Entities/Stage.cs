@@ -12,7 +12,7 @@ public class Stage
     public bool IsDeleted { get; set; }
     public DateTime? DeletedAt { get; set; }
 
-    // Optional Topic association (added via migration 020.AlterStagesAddTopicId.sql)
+    // Optional link to a Topic (backfilled by migration in future)
     public Guid? TopicId { get; set; }
 
     // Navigation

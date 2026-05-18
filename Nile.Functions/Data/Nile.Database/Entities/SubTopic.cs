@@ -2,7 +2,6 @@ namespace Nile.Database.Entities;
 
 using System.ComponentModel.DataAnnotations.Schema;
 
-[Table("SubTopics", Schema = "dbo")]
 public class SubTopic
 {
     public Guid SubTopicId { get; set; }

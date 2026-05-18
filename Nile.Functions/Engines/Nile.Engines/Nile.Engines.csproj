@@ -11,6 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Accessors\Nile.Accessors\Nile.Accessors.csproj" />
+    <ProjectReference Include="..\..\Common\Nile.Common\Nile.Common.csproj" />
     <ProjectReference Include="..\..\Managers\Nile.Managers.Contract.Client\Nile.Managers.Contract.Client.csproj" />
     <ProjectReference Include="..\..\Nile.Utilities\Nile.Utilities.csproj" />
   </ItemGroup>
