@@ -28,8 +28,6 @@
   </ItemGroup>
   
   <ItemGroup>
-    <ProjectReference Include="..\..\Common\Nile.Common\Nile.Common.csproj" />
-    <ProjectReference Include="..\..\Accessors\Nile.Accessors\Nile.Accessors.csproj" />
     <ProjectReference Include="..\Nile.Database\Nile.Database.csproj" />
   </ItemGroup>
 </Project>

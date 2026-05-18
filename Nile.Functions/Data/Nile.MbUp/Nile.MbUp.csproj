@@ -8,8 +8,6 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <ProjectReference Include="..\..\Accessors\Nile.Accessors\Nile.Accessors.csproj" />
-    <ProjectReference Include="..\..\Common\Nile.Common\Nile.Common.csproj" />
     <ProjectReference Include="..\Nile.Database\Nile.Database.csproj" />
     <ProjectReference Include="..\..\Nile.Utilities\Nile.Utilities.csproj" />
   </ItemGroup>

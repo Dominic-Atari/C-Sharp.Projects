@@ -1,0 +1,10 @@
+<Project>
+  <PropertyGroup>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
+  </PropertyGroup>
+  <ItemGroup>
+    <Using Include="Nile.Common.InternalDTOs" Alias="DTO" />
+    <Using Include="Nile.Common.InternalDTOs" Alias="IDTO" />
+  </ItemGroup>
+</Project>

@@ -19,3 +19,4 @@ src/environments/environment.ts
 
 # IDE
 .idea/
+.claude/

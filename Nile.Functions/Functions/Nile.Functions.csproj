@@ -33,11 +33,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Accessors\Nile.Accessors\Nile.Accessors.csproj" />
     <ProjectReference Include="..\Nile.Utilities\Nile.Utilities.csproj" />
-      <ProjectReference Include="..\Accessors\Nile.Accessors\Nile.Accessors.csproj" />
-    <ProjectReference Include="..\Accessors\Nile.Accessors\Nile.Accessors.csproj" />
-    <ProjectReference Include="..\Clients\Nile.Client.Functions\Nile.Client.Functions.csproj" />
     <ProjectReference Include="..\Managers\Nile.Managers\Nile.Managers.csproj" />
   </ItemGroup>
 
