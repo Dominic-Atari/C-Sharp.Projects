@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { IonicModule, AlertController, ToastController } from '@ionic/angular';
 import { ApiService, StageDetails } from '../../services/api.service';
 import { firstValueFrom } from 'rxjs';
@@ -7,11 +7,10 @@ import { firstValueFrom } from 'rxjs';
 interface Student { userId: string; username?: string | null; firstName?: string | null; lastName?: string | null; stageId?: string | null; level?: string | null }
 
 @Component({
-  selector: 'app-manage-students',
-  standalone: true,
-  imports: [CommonModule, IonicModule],
-  templateUrl: './manage-students.page.html',
-  styleUrls: ['./manage-students.page.scss']
+    selector: 'app-manage-students',
+    imports: [IonicModule],
+    templateUrl: './manage-students.page.html',
+    styleUrls: ['./manage-students.page.scss']
 })
 export class ManageStudentsPage implements OnInit {
   stages: StageDetails[] = [];

@@ -1,15 +1,14 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { IonicModule, PopoverController } from '@ionic/angular';
 import { ApiService, CreateStageRequest } from '../../services/api.service';
 import { firstValueFrom } from 'rxjs';
 
 @Component({
-  selector: 'app-create-stage',
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, IonicModule],
-  template: `
+    selector: 'app-create-stage',
+    imports: [ReactiveFormsModule, IonicModule],
+    template: `
   <ion-header>
     <ion-toolbar>
       <ion-title>Create Stage</ion-title>
@@ -36,12 +35,16 @@ import { firstValueFrom } from 'rxjs';
             <ion-button fill="clear" (click)="close()">Cancel</ion-button>
           </div>
         </form>
-        <div *ngIf="message"><ion-text color="success">{{ message }}</ion-text></div>
-        <div *ngIf="error"><ion-text color="danger">{{ error }}</ion-text></div>
+        @if (message) {
+          <div><ion-text color="success">{{ message }}</ion-text></div>
+        }
+        @if (error) {
+          <div><ion-text color="danger">{{ error }}</ion-text></div>
+        }
       </ion-card-content>
     </ion-card>
   </ion-content>
-  `,
+  `
 })
 export class CreateStagePage {
   form = this.fb.group({ name: ['', Validators.required], label: [''], description: [''] });

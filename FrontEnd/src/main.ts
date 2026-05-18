@@ -1,3 +1,4 @@
+import { provideZoneChangeDetection } from "@angular/core";
 import 'zone.js';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { provideRouter } from '@angular/router';
@@ -8,7 +9,7 @@ import { APP_ROUTES } from './app/app.routes';
 
 bootstrapApplication(AppComponent, {
   providers: [
-    provideIonicAngular(),
+    provideZoneChangeDetection(),provideIonicAngular(),
     provideRouter(APP_ROUTES),
     provideHttpClient(withInterceptorsFromDi()),
   ],

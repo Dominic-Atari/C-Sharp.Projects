@@ -20,17 +20,19 @@
   </div>
 
   <div class="cards">
-    <div class="card" *ngFor="let p of enrichedPerformance" role="button" tabindex="0" (click)="openSubjectTopics(p.subjectId, p.name)">
-      <div class="card-left">
-        <h3>{{ p.name }}</h3>
-        <div class="submeta">Topics: <strong>{{ p.topicCount ?? '—' }}</strong> • Score: <strong>{{ p.score }}%</strong></div>
-      </div>
-        <div class="card-right">
-        <div class="level-chip">{{ p.level }}</div>
-        <ion-progress-bar [value]="p.score / 100" class="perf-bar"></ion-progress-bar>
-        <ion-button size="small" (click)="$event.stopPropagation(); openStudy(p.subjectId, p.name)">Study</ion-button>
+    @for (p of enrichedPerformance; track p) {
+      <div class="card" role="button" tabindex="0" (click)="openSubjectTopics(p.subjectId, p.name)">
+        <div class="card-left">
+          <h3>{{ p.name }}</h3>
+          <div class="submeta">Topics: <strong>{{ p.topicCount ?? '—' }}</strong> • Score: <strong>{{ p.score }}%</strong></div>
         </div>
-    </div>
+        <div class="card-right">
+          <div class="level-chip">{{ p.level }}</div>
+          <ion-progress-bar [value]="p.score / 100" class="perf-bar"></ion-progress-bar>
+          <ion-button size="small" (click)="$event.stopPropagation(); openStudy(p.subjectId, p.name)">Study</ion-button>
+        </div>
+      </div>
+    }
   </div>
 
   <div class="note">

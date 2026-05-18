@@ -15,16 +15,24 @@
         <ion-item>
           <ion-label position="stacked">Stage</ion-label>
           <ion-select formControlName="stage" (ionChange)="onStageChanged()">
-            <ion-select-option *ngFor="let s of stages" [value]="s.stageId">{{ s.name }}</ion-select-option>
+            @for (s of stages; track s) {
+              <ion-select-option [value]="s.stageId">{{ s.name }}</ion-select-option>
+            }
           </ion-select>
         </ion-item>
-        <ion-item *ngIf="form.get('stage')?.value">
-          <ion-label position="stacked">Sublevel {{ needsSublevelRequired ? '(required)' : '(optional)' }}</ion-label>
-          <ion-select formControlName="subLevelId" placeholder="Select sublevel">
-            <ion-select-option *ngIf="(sublevels || []).length === 0" disabled>No sublevels for selected stage</ion-select-option>
-            <ion-select-option *ngFor="let sl of sublevels" [value]="sl.subLevelId">{{ sl.name }}</ion-select-option>
-          </ion-select>
-        </ion-item>
+        @if (form.get('stage')?.value) {
+          <ion-item>
+            <ion-label position="stacked">Sublevel {{ needsSublevelRequired ? '(required)' : '(optional)' }}</ion-label>
+            <ion-select formControlName="subLevelId" placeholder="Select sublevel">
+              @if ((sublevels || []).length === 0) {
+                <ion-select-option disabled>No sublevels for selected stage</ion-select-option>
+              }
+              @for (sl of sublevels; track sl) {
+                <ion-select-option [value]="sl.subLevelId">{{ sl.name }}</ion-select-option>
+              }
+            </ion-select>
+          </ion-item>
+        }
         <ion-item>
           <ion-label position="stacked">Description</ion-label>
           <ion-input formControlName="description"></ion-input>
@@ -34,8 +42,12 @@
           <ion-button fill="clear" (click)="router.navigateByUrl('/dashboard')" title="Cancel and return to dashboard">Cancel</ion-button>
         </div>
       </form>
-      <div *ngIf="message"><ion-text color="success">{{ message }}</ion-text></div>
-      <div *ngIf="error"><ion-text color="danger">{{ error }}</ion-text></div>
+      @if (message) {
+        <div><ion-text color="success">{{ message }}</ion-text></div>
+      }
+      @if (error) {
+        <div><ion-text color="danger">{{ error }}</ion-text></div>
+      }
     </ion-card-content>
   </ion-card>
 </ion-content>

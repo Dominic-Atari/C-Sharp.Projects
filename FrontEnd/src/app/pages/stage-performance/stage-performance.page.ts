@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { IonicModule } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from '../../services/api.service';
@@ -9,10 +9,9 @@ import { ChatPerformanceComponent } from '../../components/chat-performance/chat
 import { StagePerformanceChartComponent } from '../../components/stage-performance-chart/stage-performance-chart.component';
 
 @Component({
-  selector: 'app-stage-performance',
-  standalone: true,
-  imports: [CommonModule, IonicModule, ChatPerformanceComponent, StagePerformanceChartComponent],
-  template: `
+    selector: 'app-stage-performance',
+    imports: [IonicModule, ChatPerformanceComponent, StagePerformanceChartComponent],
+    template: `
     <ion-header>
       <ion-toolbar>
         <ion-buttons slot="start">
@@ -22,8 +21,8 @@ import { StagePerformanceChartComponent } from '../../components/stage-performan
       </ion-toolbar>
     </ion-header>
     <ion-content>
-      <ng-container *ngIf="loaded; else loading">
-        <ng-container *ngIf="students && students.length; else noStudents">
+      @if (loaded) {
+        @if (students && students.length) {
           <ion-segment value="chart" (ionChange)="viewMode = $any($event.detail).value">
             <ion-segment-button value="chart">
               <ion-label>Chart</ion-label>
@@ -32,38 +31,40 @@ import { StagePerformanceChartComponent } from '../../components/stage-performan
               <ion-label>Chat</ion-label>
             </ion-segment-button>
           </ion-segment>
-
           <div style="margin-top:0.8rem"></div>
-
-          <div *ngIf="viewMode === 'chart'">
-            <app-stage-performance-chart [students]="students"></app-stage-performance-chart>
-          </div>
-
-          <div *ngIf="viewMode === 'chat'">
-            <app-chat-performance [schoolId]="schoolId" [students]="students"></app-chat-performance>
-          </div>
-        </ng-container>
-
-        <ng-template #noStudents>
+          @if (viewMode === 'chart') {
+            <div>
+              <app-stage-performance-chart [students]="students"></app-stage-performance-chart>
+            </div>
+          }
+          @if (viewMode === 'chat') {
+            <div>
+              <app-chat-performance [schoolId]="schoolId" [students]="students"></app-chat-performance>
+            </div>
+          }
+        } @else {
           <div class="loading">No students assigned to this level.</div>
-          <div *ngIf="unassigned && unassigned.length" style="padding:1rem">
-            <p class="muted">Unassigned students — assign to this level:</p>
-            <ion-list>
-              <ion-item *ngFor="let s of unassigned">
-                <ion-label>{{ s.firstName || s.username || s.userId }}</ion-label>
-                <ion-button size="small" fill="clear" (click)="openTopicPerformanceForStudent(s.userId); $event.stopPropagation()">Topics</ion-button>
-                <ion-button size="small" (click)="assignStudentToStage(s.userId); $event.stopPropagation()">Assign</ion-button>
-              </ion-item>
-            </ion-list>
-          </div>
-        </ng-template>
-      </ng-container>
-      <ng-template #loading>
+          @if (unassigned && unassigned.length) {
+            <div style="padding:1rem">
+              <p class="muted">Unassigned students — assign to this level:</p>
+              <ion-list>
+                @for (s of unassigned; track s) {
+                  <ion-item>
+                    <ion-label>{{ s.firstName || s.username || s.userId }}</ion-label>
+                    <ion-button size="small" fill="clear" (click)="openTopicPerformanceForStudent(s.userId); $event.stopPropagation()">Topics</ion-button>
+                    <ion-button size="small" (click)="assignStudentToStage(s.userId); $event.stopPropagation()">Assign</ion-button>
+                  </ion-item>
+                }
+              </ion-list>
+            </div>
+          }
+        }
+      } @else {
         <div class="loading">Loading…</div>
-      </ng-template>
+      }
     </ion-content>
-  `,
-  styles: [`.loading { padding: 2rem; text-align: center; color: var(--ion-color-medium); }`]
+    `,
+    styles: [`.loading { padding: 2rem; text-align: center; color: var(--ion-color-medium); }`]
 })
 export class StagePerformancePage implements OnInit {
   stageId?: string | null;

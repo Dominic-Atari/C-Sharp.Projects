@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import {
   IonButton,
@@ -21,10 +21,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../services/api.service';
 
 @Component({
-  selector: 'app-auth',
-  standalone: true,
-  imports: [
-    CommonModule,
+    selector: 'app-auth',
+    imports: [
     ReactiveFormsModule,
     IonHeader,
     IonToolbar,
@@ -39,10 +37,10 @@ import { ApiService } from '../../services/api.service';
     IonLabel,
     IonInput,
     IonButton,
-    IonText,
-  ],
-  templateUrl: './auth.page.html',
-  styleUrls: ['./auth.page.scss'],
+    IonText
+],
+    templateUrl: './auth.page.html',
+    styleUrls: ['./auth.page.scss']
 })
 export class AuthPage implements OnInit {
   mode: 'login' | 'register' = 'register';

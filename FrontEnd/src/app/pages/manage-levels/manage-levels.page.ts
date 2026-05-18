@@ -1,15 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { IonicModule, AlertController, ToastController } from '@ionic/angular';
 import { ApiService, StageDetails } from '../../services/api.service';
 import { firstValueFrom } from 'rxjs';
 
 @Component({
-  selector: 'app-manage-levels',
-  standalone: true,
-  imports: [CommonModule, IonicModule],
-  templateUrl: './manage-levels.page.html',
-  styleUrls: ['./manage-levels.page.scss']
+    selector: 'app-manage-levels',
+    imports: [IonicModule],
+    templateUrl: './manage-levels.page.html',
+    styleUrls: ['./manage-levels.page.scss']
 })
 export class ManageLevelsPage implements OnInit {
   stages: StageDetails[] = [];

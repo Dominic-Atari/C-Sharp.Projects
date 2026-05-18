@@ -1,14 +1,13 @@
 import { Component, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { IonicModule, PopoverController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { CreateSubjectPage } from '../create-subject/create-subject.page';
 
 @Component({
-  selector: 'app-school-logo-popover',
-  standalone: true,
-  imports: [CommonModule, IonicModule],
-  template: `
+    selector: 'app-school-logo-popover',
+    imports: [IonicModule],
+    template: `
     <div style="padding:8px 12px;min-width:200px">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
         <div style="font-weight:700">{{ schoolName || 'School' }}</div>
@@ -20,7 +19,7 @@ import { CreateSubjectPage } from '../create-subject/create-subject.page';
         <ion-button size="small" expand="block" (click)="openCreateSubject()">Create subject</ion-button>
       </div>
     </div>
-  `,
+  `
 })
 export class SchoolLogoPopoverComponent {
   @Input() schoolId?: string | null;

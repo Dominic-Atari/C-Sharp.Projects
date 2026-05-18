@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { IonicModule, ModalController } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { ApiService } from '../../services/api.service';
@@ -7,10 +7,9 @@ import { Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 
 @Component({
-  selector: 'app-subject-topic-picker',
-  standalone: true,
-  imports: [CommonModule, IonicModule, FormsModule],
-  template: `
+    selector: 'app-subject-topic-picker',
+    imports: [IonicModule, FormsModule],
+    template: `
     <ion-header>
       <ion-toolbar>
         <ion-title>Choose subject & topic</ion-title>
@@ -21,40 +20,55 @@ import { firstValueFrom } from 'rxjs';
     </ion-header>
     <ion-content>
       <div class="picker-container">
-        <div *ngIf="loading" class="loading">Loading…</div>
-        <div *ngIf="!loading">
-          <p *ngIf="stageName" class="muted">Stage: {{ stageName }}</p>
-          <ion-list>
-            <ion-list-header>Subjects</ion-list-header>
-            <ion-searchbar [(ngModel)]="filterTerm" placeholder="Filter subjects" debounce="200"></ion-searchbar>
-            <ion-item *ngFor="let s of filteredSubjects()" (click)="selectSubject(s)" [class.selected]="s.subjectId === selectedSubjectId">
-              <ion-label>
-                <h3>{{ s.name }}</h3>
-                <p class="muted">Stage: {{ s.stage }}</p>
-              </ion-label>
-              <ion-note slot="end" class="subject-stage">{{ s.stage }}</ion-note>
-            </ion-item>
-            <ion-item *ngIf="filteredSubjects().length === 0">No subjects found</ion-item>
-          </ion-list>
-
-          <div *ngIf="topics && topics.length" class="topics-area">
+        @if (loading) {
+          <div class="loading">Loading…</div>
+        }
+        @if (!loading) {
+          <div>
+            @if (stageName) {
+              <p class="muted">Stage: {{ stageName }}</p>
+            }
             <ion-list>
-              <ion-list-header>Topics</ion-list-header>
-              <ion-item *ngFor="let t of topics" (click)="openTopic(t)">
-                <ion-label>
-                  <h3>{{ t.subtopic }}</h3>
-                  <p class="muted">{{ t.name ?? '' }}</p>
-                </ion-label>
-                <ion-icon name="caret-forward-outline" slot="end"></ion-icon>
-              </ion-item>
+              <ion-list-header>Subjects</ion-list-header>
+              <ion-searchbar [(ngModel)]="filterTerm" placeholder="Filter subjects" debounce="200"></ion-searchbar>
+              @for (s of filteredSubjects(); track s) {
+                <ion-item (click)="selectSubject(s)" [class.selected]="s.subjectId === selectedSubjectId">
+                  <ion-label>
+                    <h3>{{ s.name }}</h3>
+                    <p class="muted">Stage: {{ s.stage }}</p>
+                  </ion-label>
+                  <ion-note slot="end" class="subject-stage">{{ s.stage }}</ion-note>
+                </ion-item>
+              }
+              @if (filteredSubjects().length === 0) {
+                <ion-item>No subjects found</ion-item>
+              }
             </ion-list>
+            @if (topics && topics.length) {
+              <div class="topics-area">
+                <ion-list>
+                  <ion-list-header>Topics</ion-list-header>
+                  @for (t of topics; track t) {
+                    <ion-item (click)="openTopic(t)">
+                      <ion-label>
+                        <h3>{{ t.subtopic }}</h3>
+                        <p class="muted">{{ t.name ?? '' }}</p>
+                      </ion-label>
+                      <ion-icon name="caret-forward-outline" slot="end"></ion-icon>
+                    </ion-item>
+                  }
+                </ion-list>
+              </div>
+            }
+            @if (!topics || topics.length === 0) {
+              <div class="no-topics muted">No topics found</div>
+            }
           </div>
-          <div *ngIf="!topics || topics.length === 0" class="no-topics muted">No topics found</div>
-        </div>
+        }
       </div>
     </ion-content>
-  `,
-  styles: [`
+    `,
+    styles: [`
     .picker-container { padding: 0.5rem 1rem; }
     .loading { text-align:center; padding:1rem; }
     .muted { color: var(--ion-color-medium); font-size:0.9rem; }

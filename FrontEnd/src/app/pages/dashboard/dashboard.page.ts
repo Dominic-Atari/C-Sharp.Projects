@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { IonicModule } from '@ionic/angular';
 import { addIcons } from 'ionicons';
 import { flameOutline, timeOutline, playOutline, heartOutline, repeatOutline, addCircleOutline, logOutOutline, personAddOutline, peopleOutline } from 'ionicons/icons';
@@ -30,16 +30,14 @@ interface StoryCard {
 }
 
 @Component({
-  selector: 'app-dashboard',
-  standalone: true,
-  imports: [
-    CommonModule,
-    IonicModule,
-  ],
+    selector: 'app-dashboard',
+    imports: [
+    IonicModule
+],
     templateUrl: './head-teachers-page.html',
     // Renamed dashboard template for head teachers
     // Note: file renamed to `head-teachers-page.html`
-  styleUrls: ['./dashboard.page.scss'],
+    styleUrls: ['./dashboard.page.scss']
 })
 export class DashboardPage implements OnInit {
   prompts: PromptRoom[] = [

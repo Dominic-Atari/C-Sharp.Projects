@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { IonicModule, ModalController, PopoverController, IonButton, AlertController, ToastController } from '@ionic/angular';
 import { ApiService } from '../../services/api.service';
 import { CreateTeacherPage } from '../create-teacher/create-teacher.page';
@@ -7,11 +7,10 @@ import { TeacherDetailComponent } from '../dashboard/teacher-detail.component';
 import { firstValueFrom } from 'rxjs';
 
 @Component({
-  selector: 'app-manage-teachers',
-  standalone: true,
-  imports: [CommonModule, IonicModule],
-  templateUrl: './manage-teachers.page.html',
-  styleUrls: ['./manage-teachers.page.scss']
+    selector: 'app-manage-teachers',
+    imports: [IonicModule],
+    templateUrl: './manage-teachers.page.html',
+    styleUrls: ['./manage-teachers.page.scss']
 })
 export class ManageTeachersPage implements OnInit {
   teachers: Array<{ userId: string; username: string; firstName?: string | null; lastName?: string | null }> = [];

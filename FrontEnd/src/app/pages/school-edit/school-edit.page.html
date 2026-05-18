@@ -53,8 +53,12 @@
           <ion-button fill="clear" (click)="router.navigateByUrl('/dashboard')" title="Discard changes and return">Cancel</ion-button>
         </div>
       </form>
-      <div *ngIf="message"><ion-text color="success">{{ message }}</ion-text></div>
-      <div *ngIf="error"><ion-text color="danger">{{ error }}</ion-text></div>
+      @if (message) {
+        <div><ion-text color="success">{{ message }}</ion-text></div>
+      }
+      @if (error) {
+        <div><ion-text color="danger">{{ error }}</ion-text></div>
+      }
     </ion-card-content>
   </ion-card>
 </ion-content>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { IonicModule } from '@ionic/angular';
 import { addIcons } from 'ionicons';
 import { flameOutline, timeOutline, playOutline, heartOutline, repeatOutline, addCircleOutline } from 'ionicons/icons';
@@ -28,14 +28,12 @@ interface StoryCard {
 }
 
 @Component({
-  selector: 'app-feed',
-  standalone: true,
-  imports: [
-    CommonModule,
-    IonicModule,
-  ],
-  templateUrl: './feed.page.html',
-  styleUrls: ['./feed.page.scss'],
+    selector: 'app-feed',
+    imports: [
+    IonicModule
+],
+    templateUrl: './feed.page.html',
+    styleUrls: ['./feed.page.scss']
 })
 export class FeedPage implements OnInit {
   prompts: PromptRoom[] = [

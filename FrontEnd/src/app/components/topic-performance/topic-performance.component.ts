@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { IonicModule, ModalController, ToastController } from '@ionic/angular';
 import { ApiService } from '../../services/api.service';
@@ -7,11 +7,10 @@ import { CreateNotePage } from '../../pages/create-note/create-note.page';
 import { firstValueFrom } from 'rxjs';
 
 @Component({
-  selector: 'app-topic-performance',
-  standalone: true,
-  imports: [CommonModule, FormsModule, IonicModule],
-  templateUrl: './topic-performance.component.html',
-  styleUrls: ['./topic-performance.component.scss']
+    selector: 'app-topic-performance',
+    imports: [FormsModule, IonicModule],
+    templateUrl: './topic-performance.component.html',
+    styleUrls: ['./topic-performance.component.scss']
 })
 export class TopicPerformanceComponent implements OnInit {
   @Input() schoolId?: string | null;

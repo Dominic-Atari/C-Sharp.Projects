@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import {
   IonButton,
@@ -18,10 +18,8 @@ export interface FeedPostPayload {
 }
 
 @Component({
-  selector: 'app-feed-post-form',
-  standalone: true,
-  imports: [
-    CommonModule,
+    selector: 'app-feed-post-form',
+    imports: [
     FormsModule,
     IonCard,
     IonCardContent,
@@ -30,10 +28,10 @@ export interface FeedPostPayload {
     IonTextarea,
     IonButton,
     IonLabel,
-    IonNote,
-  ],
-  templateUrl: './feed-post-form.component.html',
-  styleUrls: ['./feed-post-form.component.scss'],
+    IonNote
+],
+    templateUrl: './feed-post-form.component.html',
+    styleUrls: ['./feed-post-form.component.scss']
 })
 export class FeedPostFormComponent {
   @Output() create = new EventEmitter<FeedPostPayload>();

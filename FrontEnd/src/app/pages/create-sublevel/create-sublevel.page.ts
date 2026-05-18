@@ -1,16 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardContent, IonItem, IonLabel, IonInput, IonButton, IonText, IonSelect, IonSelectOption, ModalController, ToastController } from '@ionic/angular/standalone';
 import { firstValueFrom } from 'rxjs';
 import { ApiService, CreateSubLevelRequest, StageDetails, SubLevelDetails } from '../../services/api.service';
 
 @Component({
-  selector: 'app-create-sublevel',
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardContent, IonItem, IonLabel, IonInput, IonButton, IonText, IonSelect, IonSelectOption],
-  templateUrl: './create-sublevel.page.html',
-  styleUrls: ['./create-sublevel.page.scss']
+    selector: 'app-create-sublevel',
+    imports: [ReactiveFormsModule, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardContent, IonItem, IonLabel, IonInput, IonButton, IonText, IonSelect, IonSelectOption],
+    templateUrl: './create-sublevel.page.html',
+    styleUrls: ['./create-sublevel.page.scss']
 })
 export class CreateSubLevelPage implements OnInit {
   busy = false; message: string | null = null; error: string | null = null;

@@ -1,14 +1,13 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { IonicModule, ModalController, ToastController } from '@ionic/angular';
 import { ApiService } from '../../services/api.service';
 
 @Component({
-  selector: 'app-create-note',
-  standalone: true,
-  imports: [CommonModule, FormsModule, IonicModule],
-  template: `
+    selector: 'app-create-note',
+    imports: [FormsModule, IonicModule],
+    template: `
     <ion-header>
       <ion-toolbar>
         <ion-title>Notes</ion-title>
@@ -18,20 +17,24 @@ import { ApiService } from '../../services/api.service';
       </ion-toolbar>
     </ion-header>
     <ion-content class="notes-content">
-      <div *ngIf="!topicId" class="no-topic">No topic selected.</div>
-      <div *ngIf="topicId" class="notes-container">
-        <label class="notes-label">Notes</label>
-        <textarea class="large-notes" [(ngModel)]="notes" placeholder="Write notes here..."></textarea>
-      </div>
-
+      @if (!topicId) {
+        <div class="no-topic">No topic selected.</div>
+      }
+      @if (topicId) {
+        <div class="notes-container">
+          <label class="notes-label">Notes</label>
+          <textarea class="large-notes" [(ngModel)]="notes" placeholder="Write notes here..."></textarea>
+        </div>
+      }
+    
       <div class="notes-actions">
         <ion-button expand="block" (click)="save()" [disabled]="!canSave">Save</ion-button>
         <ion-button expand="block" fill="clear" (click)="dismiss()">Cancel</ion-button>
       </div>
     </ion-content>
-  `,
-  styles: [
-    `
+    `,
+    styles: [
+        `
     .notes-content {
       display: flex;
       flex-direction: column;
@@ -64,7 +67,7 @@ import { ApiService } from '../../services/api.service';
       .large-notes { min-height: 200px; }
     }
     `
-  ]
+    ]
 })
 export class CreateNotePage implements OnInit {
   @Input() topicId?: string | null;

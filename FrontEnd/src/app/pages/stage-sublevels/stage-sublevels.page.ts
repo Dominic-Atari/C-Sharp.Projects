@@ -1,68 +1,83 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ActivatedRoute, Router } from '@angular/router';
 import { IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardContent, IonList, IonItem, IonLabel, IonButton } from '@ionic/angular/standalone';
 import { ApiService } from '../../services/api.service';
 import { firstValueFrom } from 'rxjs';
 
 @Component({
-  selector: 'app-stage-sublevels',
-  standalone: true,
-  imports: [CommonModule, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardContent, IonList, IonItem, IonLabel, IonButton],
-  template: `
+    selector: 'app-stage-sublevels',
+    imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardContent, IonList, IonItem, IonLabel, IonButton],
+    template: `
     <ion-header>
       <ion-toolbar>
         <ion-title>Level / Sublevels</ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content class="page-shell">
-      <ion-card *ngIf="stageName">
+      @if (stageName) {
+        <ion-card>
           <ion-card-content>
             <h2>{{ stageName }}</h2>
             <p class="muted">{{ students.length }} students</p>
           </ion-card-content>
         </ion-card>
-
-        <ion-card *ngIf="students && students.length">
+      }
+    
+      @if (students && students.length) {
+        <ion-card>
           <ion-card-content>
             <h3>All students in this level</h3>
             <ion-list>
-              <ion-item *ngFor="let st of students" (click)="viewStudent(st.userId)">
-                <ion-label>{{ st.firstName || st.username }} {{ st.lastName || '' }}</ion-label>
-              </ion-item>
+              @for (st of students; track st) {
+                <ion-item (click)="viewStudent(st.userId)">
+                  <ion-label>{{ st.firstName || st.username }} {{ st.lastName || '' }}</ion-label>
+                </ion-item>
+              }
             </ion-list>
           </ion-card-content>
         </ion-card>
-
-      <ion-card *ngIf="sublevels && sublevels.length">
-        <ion-card-content>
-          <h3>Sublevels</h3>
-          <ion-list>
-            <ion-item *ngFor="let s of sublevels" (click)="selectSublevel(s.subLevelId)">
-              <ion-label>
-                <div>{{ s.name }}</div>
-                <div class="muted">Click to view students</div>
-              </ion-label>
-            </ion-item>
-          </ion-list>
-        </ion-card-content>
-      </ion-card>
-
-      <ion-card *ngIf="selectedSublevel">
-        <ion-card-content>
-          <h3>Students in {{ selectedSublevelName }}</h3>
-          <ion-list>
-            <ion-item *ngFor="let st of studentsForSelected" (click)="viewStudent(st.userId)">
-              <ion-label>{{ st.firstName || st.username }} {{ st.lastName || '' }}</ion-label>
-            </ion-item>
-          </ion-list>
-        </ion-card-content>
-      </ion-card>
-
-      <div *ngIf="!sublevels.length && !students.length" class="muted">No sublevels or students found for this level.</div>
+      }
+    
+      @if (sublevels && sublevels.length) {
+        <ion-card>
+          <ion-card-content>
+            <h3>Sublevels</h3>
+            <ion-list>
+              @for (s of sublevels; track s) {
+                <ion-item (click)="selectSublevel(s.subLevelId)">
+                  <ion-label>
+                    <div>{{ s.name }}</div>
+                    <div class="muted">Click to view students</div>
+                  </ion-label>
+                </ion-item>
+              }
+            </ion-list>
+          </ion-card-content>
+        </ion-card>
+      }
+    
+      @if (selectedSublevel) {
+        <ion-card>
+          <ion-card-content>
+            <h3>Students in {{ selectedSublevelName }}</h3>
+            <ion-list>
+              @for (st of studentsForSelected; track st) {
+                <ion-item (click)="viewStudent(st.userId)">
+                  <ion-label>{{ st.firstName || st.username }} {{ st.lastName || '' }}</ion-label>
+                </ion-item>
+              }
+            </ion-list>
+          </ion-card-content>
+        </ion-card>
+      }
+    
+      @if (!sublevels.length && !students.length) {
+        <div class="muted">No sublevels or students found for this level.</div>
+      }
     </ion-content>
-  `,
-  styleUrls: ['../create-subject/create-subject.page.scss']
+    `,
+    styleUrls: ['../create-subject/create-subject.page.scss']
 })
 export class StageSublevelsPage implements OnInit {
   stageId: string | null = null;

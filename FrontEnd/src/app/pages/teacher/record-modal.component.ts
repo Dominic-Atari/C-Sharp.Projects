@@ -1,15 +1,14 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { IonButton, IonContent, IonHeader, IonInput, IonItem, IonLabel, IonToolbar, IonTitle, IonIcon } from '@ionic/angular/standalone';
 
 @Component({
-  selector: 'app-record-modal',
-  standalone: true,
-  imports: [CommonModule, FormsModule, IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonLabel, IonInput, IonButton, IonIcon],
-  templateUrl: './record-modal.component.html',
-  styleUrls: ['./record-modal.component.scss'],
+    selector: 'app-record-modal',
+    imports: [FormsModule, IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonLabel, IonInput, IonButton, IonIcon],
+    templateUrl: './record-modal.component.html',
+    styleUrls: ['./record-modal.component.scss']
 })
 export class RecordModalComponent {
   showEdit = false;

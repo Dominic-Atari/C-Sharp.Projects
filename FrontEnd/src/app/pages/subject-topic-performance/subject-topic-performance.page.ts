@@ -1,15 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { IonicModule } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from '../../services/api.service';
 import { TopicPerformanceComponent } from '../../components/topic-performance/topic-performance.component';
 
 @Component({
-  selector: 'app-subject-topic-performance',
-  standalone: true,
-  imports: [CommonModule, IonicModule, TopicPerformanceComponent],
-  template: `
+    selector: 'app-subject-topic-performance',
+    imports: [IonicModule, TopicPerformanceComponent],
+    template: `
   <ion-header>
     <ion-toolbar>
       <ion-buttons slot="start">
@@ -19,15 +18,14 @@ import { TopicPerformanceComponent } from '../../components/topic-performance/to
     </ion-toolbar>
   </ion-header>
   <ion-content>
-    <ng-container *ngIf="loaded; else loading">
+    @if (loaded) {
       <app-topic-performance [schoolId]="schoolId" [subjectId]="subjectId" [topicId]="topicId"></app-topic-performance>
-    </ng-container>
-    <ng-template #loading>
+    } @else {
       <div class="loading">Loading…</div>
-    </ng-template>
+    }
   </ion-content>
   `,
-  styles: [`.loading { padding: 2rem; text-align: center; color: var(--ion-color-medium); }`]
+    styles: [`.loading { padding: 2rem; text-align: center; color: var(--ion-color-medium); }`]
 })
 export class SubjectTopicPerformancePage implements OnInit {
   subjectId?: string | null;

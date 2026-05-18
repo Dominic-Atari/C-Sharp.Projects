@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardContent, IonItem, IonLabel, IonInput, IonButton, IonText, IonSelect, IonSelectOption } from '@ionic/angular/standalone';
 import { Router } from '@angular/router';
@@ -7,11 +7,10 @@ import { firstValueFrom } from 'rxjs';
 import { ApiService, CreatePersonRequest, StageDetails } from '../../services/api.service';
 
 @Component({
-  selector: 'app-create-teacher',
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardContent, IonItem, IonLabel, IonInput, IonButton, IonText, IonSelect, IonSelectOption],
-  templateUrl: './create-teacher.page.html',
-  styleUrls: ['./create-teacher.page.scss']
+    selector: 'app-create-teacher',
+    imports: [ReactiveFormsModule, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardContent, IonItem, IonLabel, IonInput, IonButton, IonText, IonSelect, IonSelectOption],
+    templateUrl: './create-teacher.page.html',
+    styleUrls: ['./create-teacher.page.scss']
 })
 export class CreateTeacherPage implements OnInit {
   busy = false; message: string | null = null; error: string | null = null;

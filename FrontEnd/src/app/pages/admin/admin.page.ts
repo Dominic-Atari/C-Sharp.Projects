@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import {
   IonHeader,
@@ -21,33 +21,105 @@ import { ApiService, CreatePersonRequest, CreateSubjectRequest } from '../../ser
 import { firstValueFrom } from 'rxjs';
 
 @Component({
-  selector: 'app-admin',
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardContent, IonItem, IonLabel, IonInput, IonButton, IonText, IonChip, IonIcon, IonSelect, IonSelectOption, IonTextarea],
-  template: `
+    selector: 'app-admin',
+    imports: [ReactiveFormsModule, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardContent, IonItem, IonLabel, IonInput, IonButton, IonText, IonChip, IonIcon, IonSelect, IonSelectOption, IonTextarea],
+    template: `
     <ion-header>
       <ion-toolbar>
         <ion-title>Admin Dashboard</ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content class="admin-shell">
-      <ion-card *ngIf="schoolCreated">
-        <ion-card-content>
-          <div style="display:flex;align-items:center;justify-content:space-between">
-            <div><strong>School:</strong> {{ schoolName }}</div>
-            <div>
-              <ion-button fill="clear" (click)="openEdit()">
-                <ion-icon name="settings-outline"></ion-icon>
-              </ion-button>
+      @if (schoolCreated) {
+        <ion-card>
+          <ion-card-content>
+            <div style="display:flex;align-items:center;justify-content:space-between">
+              <div><strong>School:</strong> {{ schoolName }}</div>
+              <div>
+                <ion-button fill="clear" (click)="openEdit()">
+                  <ion-icon name="settings-outline"></ion-icon>
+                </ion-button>
+              </div>
             </div>
+          </ion-card-content>
+        </ion-card>
+      }
+    
+      @if (editing) {
+        <ion-card>
+          <ion-card-content>
+            <p class="panel-title">Edit school</p>
+            <form [formGroup]="editForm" (ngSubmit)="saveEdit()">
+              <ion-item>
+                <ion-label position="stacked">School name</ion-label>
+                <ion-input formControlName="schoolName"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="stacked">Address</ion-label>
+                <ion-input formControlName="schoolAddress"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="stacked">City</ion-label>
+                <ion-input formControlName="city"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="stacked">State</ion-label>
+                <ion-input formControlName="state"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="stacked">Country</ion-label>
+                <ion-input formControlName="country"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="stacked">County</ion-label>
+                <ion-input formControlName="county"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="stacked">Zip code</ion-label>
+                <ion-input formControlName="zipCode"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="stacked">Phone</ion-label>
+                <ion-input formControlName="phoneNumber"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="stacked">Email</ion-label>
+                <ion-input formControlName="email"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="stacked">Description</ion-label>
+                <ion-input formControlName="description"></ion-input>
+              </ion-item>
+              <div style="display:flex;gap:8px;margin-top:12px">
+                <ion-button type="submit" [disabled]="busy">Save</ion-button>
+                <ion-button fill="clear" (click)="editing = false">Cancel</ion-button>
+              </div>
+            </form>
+          </ion-card-content>
+        </ion-card>
+      }
+      <section class="hero">
+        <div class="hero-text">
+          <p class="eyebrow">Administration</p>
+          <h1>Manage your school</h1>
+          <p class="lede">Create teachers, students and subjects quickly. Assign teachers to subjects and keep things organised.</p>
+          <div class="chips">
+            <ion-chip color="light" class="chip-soft">
+              <ion-icon name="people-outline"></ion-icon>
+              <ion-label>Teachers</ion-label>
+            </ion-chip>
+            <ion-chip color="light" class="chip-soft">
+              <ion-icon name="school-outline"></ion-icon>
+              <ion-label>Subjects</ion-label>
+            </ion-chip>
           </div>
-        </ion-card-content>
-      </ion-card>
-
-      <ion-card *ngIf="editing">
+        </div>
+      </section>
+    
+      <ion-card>
         <ion-card-content>
-          <p class="panel-title">Edit school</p>
-          <form [formGroup]="editForm" (ngSubmit)="saveEdit()">
+          <p class="panel-title">Create school</p>
+          <form [formGroup]="schoolForm" (ngSubmit)="createSchool()">
             <ion-item>
               <ion-label position="stacked">School name</ion-label>
               <ion-input formControlName="schoolName"></ion-input>
@@ -88,80 +160,11 @@ import { firstValueFrom } from 'rxjs';
               <ion-label position="stacked">Description</ion-label>
               <ion-input formControlName="description"></ion-input>
             </ion-item>
-            <div style="display:flex;gap:8px;margin-top:12px">
-              <ion-button type="submit" [disabled]="busy">Save</ion-button>
-              <ion-button fill="clear" (click)="editing = false">Cancel</ion-button>
-            </div>
-          </form>
-        </ion-card-content>
-      </ion-card>
-      <section class="hero">
-        <div class="hero-text">
-          <p class="eyebrow">Administration</p>
-          <h1>Manage your school</h1>
-          <p class="lede">Create teachers, students and subjects quickly. Assign teachers to subjects and keep things organised.</p>
-          <div class="chips">
-            <ion-chip color="light" class="chip-soft">
-              <ion-icon name="people-outline"></ion-icon>
-              <ion-label>Teachers</ion-label>
-            </ion-chip>
-            <ion-chip color="light" class="chip-soft">
-              <ion-icon name="school-outline"></ion-icon>
-              <ion-label>Subjects</ion-label>
-            </ion-chip>
-          </div>
-        </div>
-      </section>
-
-      <ion-card>
-        <ion-card-content>
-          <p class="panel-title">Create school</p>
-          <form [formGroup]="schoolForm" (ngSubmit)="createSchool()">
-            <ion-item>
-              <ion-label position="stacked">School name</ion-label>
-              <ion-input formControlName="schoolName"></ion-input>
-            </ion-item>
-              <ion-item>
-                <ion-label position="stacked">Address</ion-label>
-                <ion-input formControlName="schoolAddress"></ion-input>
-              </ion-item>
-              <ion-item>
-                <ion-label position="stacked">City</ion-label>
-                <ion-input formControlName="city"></ion-input>
-              </ion-item>
-              <ion-item>
-                <ion-label position="stacked">State</ion-label>
-                <ion-input formControlName="state"></ion-input>
-              </ion-item>
-              <ion-item>
-                <ion-label position="stacked">Country</ion-label>
-                <ion-input formControlName="country"></ion-input>
-              </ion-item>
-              <ion-item>
-                <ion-label position="stacked">County</ion-label>
-                <ion-input formControlName="county"></ion-input>
-              </ion-item>
-              <ion-item>
-                <ion-label position="stacked">Zip code</ion-label>
-                <ion-input formControlName="zipCode"></ion-input>
-              </ion-item>
-              <ion-item>
-                <ion-label position="stacked">Phone</ion-label>
-                <ion-input formControlName="phoneNumber"></ion-input>
-              </ion-item>
-              <ion-item>
-                <ion-label position="stacked">Email</ion-label>
-                <ion-input formControlName="email"></ion-input>
-              </ion-item>
-            <ion-item>
-              <ion-label position="stacked">Description</ion-label>
-              <ion-input formControlName="description"></ion-input>
-            </ion-item>
             <ion-button expand="block" type="submit" [disabled]="busy || schoolCreated">Create school</ion-button>
           </form>
         </ion-card-content>
       </ion-card>
-
+    
       <ion-card id="students">
         <ion-card-content>
           <p class="panel-title">Create student</p>
@@ -182,19 +185,27 @@ import { firstValueFrom } from 'rxjs';
               <ion-label position="stacked">Last name</ion-label>
               <ion-input formControlName="lastName"></ion-input>
             </ion-item>
-            <ion-item *ngIf="sublevels?.length">
-              <ion-label position="stacked">Sublevel (optional)</ion-label>
-              <ion-select formControlName="subLevelId" placeholder="Select sublevel">
-                <ion-select-option *ngFor="let sl of sublevels" [value]="sl.subLevelId">{{ sl.name }}</ion-select-option>
-              </ion-select>
-            </ion-item>
+            @if (sublevels?.length) {
+              <ion-item>
+                <ion-label position="stacked">Sublevel (optional)</ion-label>
+                <ion-select formControlName="subLevelId" placeholder="Select sublevel">
+                  @for (sl of sublevels; track sl) {
+                    <ion-select-option [value]="sl.subLevelId">{{ sl.name }}</ion-select-option>
+                  }
+                </ion-select>
+              </ion-item>
+            }
             <ion-button expand="block" type="submit" [disabled]="busy">Create student</ion-button>
           </form>
-          <div *ngIf="message"><ion-text color="success">{{ message }}</ion-text></div>
-          <div *ngIf="error"><ion-text color="danger">{{ error }}</ion-text></div>
+          @if (message) {
+            <div><ion-text color="success">{{ message }}</ion-text></div>
+          }
+          @if (error) {
+            <div><ion-text color="danger">{{ error }}</ion-text></div>
+          }
         </ion-card-content>
       </ion-card>
-
+    
       <ion-card id="teachers">
         <ion-card-content>
           <p class="panel-title">Create teacher</p>
@@ -219,7 +230,7 @@ import { firstValueFrom } from 'rxjs';
           </form>
         </ion-card-content>
       </ion-card>
-
+    
       <ion-card id="subjects">
         <ion-card-content>
           <p class="panel-title">Create subject</p>
@@ -232,12 +243,16 @@ import { firstValueFrom } from 'rxjs';
               <ion-label position="stacked">Stage (number)</ion-label>
               <ion-input type="number" formControlName="stage"></ion-input>
             </ion-item>
-            <ion-item *ngIf="sublevels?.length">
-              <ion-label position="stacked">Sublevel (optional)</ion-label>
-              <ion-select formControlName="subLevelId" placeholder="Select sublevel">
-                <ion-select-option *ngFor="let sl of sublevels" [value]="sl.subLevelId">{{ sl.name }}</ion-select-option>
-              </ion-select>
-            </ion-item>
+            @if (sublevels?.length) {
+              <ion-item>
+                <ion-label position="stacked">Sublevel (optional)</ion-label>
+                <ion-select formControlName="subLevelId" placeholder="Select sublevel">
+                  @for (sl of sublevels; track sl) {
+                    <ion-select-option [value]="sl.subLevelId">{{ sl.name }}</ion-select-option>
+                  }
+                </ion-select>
+              </ion-item>
+            }
             <ion-item>
               <ion-label position="stacked">Description</ion-label>
               <ion-input formControlName="description"></ion-input>
@@ -247,9 +262,9 @@ import { firstValueFrom } from 'rxjs';
         </ion-card-content>
       </ion-card>
     </ion-content>
-  `,
-  styles: [
-    `:host { display:block }
+    `,
+    styles: [
+        `:host { display:block }
      .admin-shell { padding: 16px; }
      .panel-title { font-weight: 600; margin-bottom: 8px }
      .hero { display:grid; grid-template-columns:1fr auto; gap:12px; background:linear-gradient(135deg,#4338ca,#7c3aed); color:#eef2ff; border-radius:14px; padding:16px; margin-bottom:12px }
@@ -258,7 +273,7 @@ import { firstValueFrom } from 'rxjs';
      .chips { display:flex; gap:8px }
      .chip-soft { --background: rgba(255,255,255,0.08); --color:#fff; }
     `
-  ],
+    ]
 })
 export class AdminPage {
   busy = false;

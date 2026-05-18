@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardContent, IonItem, IonLabel, IonInput, IonButton, IonSelect, IonSelectOption, IonText } from '@ionic/angular/standalone';
 import { Router } from '@angular/router';
@@ -7,11 +7,10 @@ import { firstValueFrom } from 'rxjs';
 import { ApiService, CreateSubjectRequest, StageDetails } from '../../services/api.service';
 
 @Component({
-  selector: 'app-create-subject',
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardContent, IonItem, IonLabel, IonInput, IonButton, IonSelect, IonSelectOption, IonText],
-  templateUrl: './create-subject.page.html',
-  styleUrls: ['./create-subject.page.scss']
+    selector: 'app-create-subject',
+    imports: [ReactiveFormsModule, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardContent, IonItem, IonLabel, IonInput, IonButton, IonSelect, IonSelectOption, IonText],
+    templateUrl: './create-subject.page.html',
+    styleUrls: ['./create-subject.page.scss']
 })
 export class CreateSubjectPage {
   busy = false;

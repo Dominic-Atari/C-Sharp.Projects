@@ -1,35 +1,37 @@
 import { Component, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 
 interface Group { label: string; count: number; pct: number }
 
 @Component({
-  selector: 'app-stage-performance-chart',
-  standalone: true,
-  imports: [CommonModule],
-  template: `
-    <div class="spc-root" *ngIf="students?.length; else empty">
-      <div class="spc-header">
-        <h3>Performance snapshot</h3>
-        <small>{{ students.length }} learners</small>
-      </div>
-      <div class="spc-bars">
-        <div class="spc-bar" *ngFor="let g of groups" [attr.data-label]="g.label">
-          <div class="spc-meta">
-            <div class="spc-label">{{ g.label }}</div>
-            <div class="spc-count">{{ g.count }} • {{ g.pct }}%</div>
-          </div>
-          <div class="spc-track">
-            <div class="spc-fill" [style.width.%]="g.pct"></div>
-          </div>
+    selector: 'app-stage-performance-chart',
+    imports: [],
+    template: `
+    @if (students?.length) {
+      <div class="spc-root">
+        <div class="spc-header">
+          <h3>Performance snapshot</h3>
+          <small>{{ students.length }} learners</small>
+        </div>
+        <div class="spc-bars">
+          @for (g of groups; track g) {
+            <div class="spc-bar" [attr.data-label]="g.label">
+              <div class="spc-meta">
+                <div class="spc-label">{{ g.label }}</div>
+                <div class="spc-count">{{ g.count }} • {{ g.pct }}%</div>
+              </div>
+              <div class="spc-track">
+                <div class="spc-fill" [style.width.%]="g.pct"></div>
+              </div>
+            </div>
+          }
         </div>
       </div>
-    </div>
-    <ng-template #empty>
+    } @else {
       <div class="spc-empty">No learners to show performance for.</div>
-    </ng-template>
-  `,
-  styleUrls: ['./stage-performance-chart.component.scss']
+    }
+    `,
+    styleUrls: ['./stage-performance-chart.component.scss']
 })
 export class StagePerformanceChartComponent {
   @Input() students: Array<any> = [];

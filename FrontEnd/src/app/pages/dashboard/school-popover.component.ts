@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { IonicModule, PopoverController, AlertController, ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
@@ -17,45 +17,46 @@ import { CreateSubLevelPage } from '../create-sublevel/create-sublevel.page';
 import { CreateTopicPage } from '../create-topic/create-topic.page';
 
 @Component({
-  selector: 'app-school-popover',
-  standalone: true,
-  imports: [CommonModule, IonicModule, FormsModule],
-  template: `
+    selector: 'app-school-popover',
+    imports: [IonicModule, FormsModule],
+    template: `
     <div class="popover-root">
       <div class="popover-header">
         <div class="school-title">{{ schoolName || 'School' }}</div>
         <div class="header-actions">
-          <ion-button class="settings-btn" *ngIf="isHeadTeacher" fill="clear" size="small" (click)="goToEdit()">⚙</ion-button>
+          @if (isHeadTeacher) {
+            <ion-button class="settings-btn" fill="clear" size="small" (click)="goToEdit()">⚙</ion-button>
+          }
         </div>
       </div>
-
+    
       <div class="school-meta">ID: {{ schoolId || '—' }} • County: {{ county || '—' }}</div>
-
+    
       <div class="actions-row">
         <div class="action-buttons">
-          <ng-container *ngIf="isHeadTeacher">
-              <ion-button size="small" expand="block" (click)="openAction('manage-teachers')">Manage teachers</ion-button>
+          @if (isHeadTeacher) {
+            <ion-button size="small" expand="block" (click)="openAction('manage-teachers')">Manage teachers</ion-button>
             <ion-button size="small" expand="block" (click)="openAction('assign-teacher')">Assign teacher → subject</ion-button>
             <ion-button size="small" expand="block" (click)="openAction('create-subject')">Create subject</ion-button>
             <ion-button size="small" expand="block" color="danger" (click)="confirmClearTopics()">Clear all topics</ion-button>
-              <!-- Create topic and Create sublevel removed per request -->
+            <!-- Create topic and Create sublevel removed per request -->
             <ion-button size="small" expand="block" (click)="openAction('manage-levels')">Manage levels</ion-button>
             <ion-button size="small" expand="block" (click)="openAction('manage-students')">Manage students</ion-button>
-          </ng-container>
-          <ng-container *ngIf="isTeacher && !isHeadTeacher">
+          }
+          @if (isTeacher && !isHeadTeacher) {
             <ion-button size="small" expand="block" (click)="openAction('create-topic')">Create topic</ion-button>
-          </ng-container>
+          }
         </div>
-
+    
         <!-- Manage Teacher Topics removed -->
       </div>
-
+    
       <!-- topics grid removed -->
     </div>
-  `,
-  styles: [
-    `:host { --popover-max-width: 900px; }`,
-    `.popover-root { padding: 14px; min-width: 0; max-width: var(--popover-max-width); width:100%; box-sizing:border-box; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; overflow-x:hidden; }
+    `,
+    styles: [
+        `:host { --popover-max-width: 900px; }`,
+        `.popover-root { padding: 14px; min-width: 0; max-width: var(--popover-max-width); width:100%; box-sizing:border-box; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; overflow-x:hidden; }
      .popover-header { display:flex; align-items:center; justify-content:space-between; gap:8px; }
      .school-brand { display:flex; align-items:center; gap:10px; }
      .popover-logo { width:44px; height:44px; object-fit:cover; border-radius:8px; box-shadow:0 1px 4px rgba(0,0,0,0.12); }
@@ -92,7 +93,7 @@ import { CreateTopicPage } from '../create-topic/create-topic.page';
      .no-data, .no-topics, .no-subtopics { color:var(--ion-color-medium); font-size:13px; }
      @media (max-width: 520px) { .popover-root { min-width: 0; padding:10px; } .action-buttons { width:100%; max-width:100%; } .subjects-column { grid-template-columns: 1fr; } }
     `
-  ],
+    ]
 })
 export class SchoolPopoverComponent implements OnInit, OnDestroy {
   @Input() schoolId?: string | null;

@@ -1,14 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { IonicModule, PopoverController, ToastController } from '@ionic/angular';
 import { ApiService } from '../../services/api.service';
 
 @Component({
-  selector: 'app-create-topic',
-  standalone: true,
-  imports: [CommonModule, FormsModule, IonicModule],
-  template: `
+    selector: 'app-create-topic',
+    imports: [FormsModule, IonicModule],
+    template: `
     <ion-header>
       <ion-toolbar>
         <ion-title>Create Topic</ion-title>
@@ -18,50 +17,62 @@ import { ApiService } from '../../services/api.service';
       </ion-toolbar>
     </ion-header>
     <ion-content class="ion-padding">
-      <div *ngIf="!schoolId">No school selected.</div>
-
-      <ion-item *ngIf="schoolId">
-        <ion-label position="stacked">Subject</ion-label>
-        <ion-select [(ngModel)]="selectedSubjectId" (ionChange)="loadTopicsForSelected()" placeholder="Select subject">
-          <ion-select-option *ngFor="let s of subjects" [value]="s.subjectId">{{ s.name }}</ion-select-option>
-        </ion-select>
-      </ion-item>
-
-      <div *ngIf="topicsForSubject?.length" style="margin-top:8px">
-        <p style="margin:0 0 6px 0;font-weight:600">Existing topics for this subject</p>
-        <div style="display:flex;flex-direction:column;gap:6px">
-          <ion-button size="small" fill="clear" *ngFor="let t of topicsForSubject" (click)="chooseExisting(t)">• {{ t.subtopic }} <span style="color:var(--ion-color-medium);font-size:12px;margin-left:8px">{{ t.notes ? '(has notes)' : '' }}</span></ion-button>
+      @if (!schoolId) {
+        <div>No school selected.</div>
+      }
+    
+      @if (schoolId) {
+        <ion-item>
+          <ion-label position="stacked">Subject</ion-label>
+          <ion-select [(ngModel)]="selectedSubjectId" (ionChange)="loadTopicsForSelected()" placeholder="Select subject">
+            @for (s of subjects; track s) {
+              <ion-select-option [value]="s.subjectId">{{ s.name }}</ion-select-option>
+            }
+          </ion-select>
+        </ion-item>
+      }
+    
+      @if (topicsForSubject?.length) {
+        <div style="margin-top:8px">
+          <p style="margin:0 0 6px 0;font-weight:600">Existing topics for this subject</p>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            @for (t of topicsForSubject; track t) {
+              <ion-button size="small" fill="clear" (click)="chooseExisting(t)">• {{ t.subtopic }} <span style="color:var(--ion-color-medium);font-size:12px;margin-left:8px">{{ t.notes ? '(has notes)' : '' }}</span></ion-button>
+            }
+          </div>
         </div>
-      </div>
-
+      }
+    
       <div style="margin-top:8px">
         <p style="margin:0 0 6px 0;font-weight:600">Subtopics to create / edit</p>
         <div style="display:flex;flex-direction:column;gap:8px">
-          <div *ngFor="let r of rows; let idx = index" style="display:flex;flex-wrap:wrap;gap:8px;align-items:flex-start">
-            <ion-item style="flex:1 1 320px; min-width:220px">
-              <ion-label position="stacked">Subtopic</ion-label>
-              <ion-input [(ngModel)]="r.subtopic" placeholder="Subtopic"></ion-input>
-            </ion-item>
-            <ion-item style="flex:1 1 320px; min-width:220px">
-              <ion-label position="stacked">Notes (optional)</ion-label>
-              <ion-textarea rows="3" [(ngModel)]="r.notes" placeholder="Add notes (optional)"></ion-textarea>
-            </ion-item>
-            <div style="display:flex;flex-direction:column;gap:6px;align-items:center">
-              <ion-button size="small" color="danger" fill="clear" (click)="removeRow(idx)">Remove</ion-button>
+          @for (r of rows; track r; let idx = $index) {
+            <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:flex-start">
+              <ion-item style="flex:1 1 320px; min-width:220px">
+                <ion-label position="stacked">Subtopic</ion-label>
+                <ion-input [(ngModel)]="r.subtopic" placeholder="Subtopic"></ion-input>
+              </ion-item>
+              <ion-item style="flex:1 1 320px; min-width:220px">
+                <ion-label position="stacked">Notes (optional)</ion-label>
+                <ion-textarea rows="3" [(ngModel)]="r.notes" placeholder="Add notes (optional)"></ion-textarea>
+              </ion-item>
+              <div style="display:flex;flex-direction:column;gap:6px;align-items:center">
+                <ion-button size="small" color="danger" fill="clear" (click)="removeRow(idx)">Remove</ion-button>
+              </div>
             </div>
-          </div>
+          }
           <div>
             <ion-button size="small" fill="clear" (click)="addRow()">+ Add row</ion-button>
           </div>
         </div>
       </div>
-
+    
       <div style="margin-top:12px;display:flex;gap:8px;">
         <ion-button expand="block" (click)="create()" [disabled]="!canCreate">Create All</ion-button>
         <ion-button expand="block" fill="clear" (click)="dismiss()">Cancel</ion-button>
       </div>
     </ion-content>
-  `,
+    `
 })
 export class CreateTopicPage implements OnInit {
   @Input() schoolId?: string | null;

@@ -12,11 +12,10 @@ interface PerfGroup {
 }
 
 @Component({
-  selector: 'app-chat-performance',
-  standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule],
-  templateUrl: './chat-performance.component.html',
-  styleUrls: ['./chat-performance.component.scss']
+    selector: 'app-chat-performance',
+    imports: [IonicModule, CommonModule, FormsModule],
+    templateUrl: './chat-performance.component.html',
+    styleUrls: ['./chat-performance.component.scss']
 })
 export class ChatPerformanceComponent implements OnInit {
   @Input() schoolId?: string | null;

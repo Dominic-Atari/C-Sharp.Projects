@@ -9,12 +9,14 @@
   <div class="modal-body">
     <p>Pick recording or upload a short clip for this prompt.</p>
 
-    <div *ngIf="showEdit" class="edit-row">
-      <ion-item>
-        <ion-label position="stacked">Subject name</ion-label>
-        <ion-input [(ngModel)]="subjectName" placeholder="Enter subject name"></ion-input>
-      </ion-item>
-    </div>
+    @if (showEdit) {
+      <div class="edit-row">
+        <ion-item>
+          <ion-label position="stacked">Subject name</ion-label>
+          <ion-input [(ngModel)]="subjectName" placeholder="Enter subject name"></ion-input>
+        </ion-item>
+      </div>
+    }
 
     <!-- Preview of story with editable action pills -->
     <div class="preview-card">
@@ -28,61 +30,57 @@
 
       <div class="preview-actions">
         <div class="action-row">
-          <ng-container *ngIf="!editReactions; else editReactionsTpl">
+          @if (!editReactions) {
             <div class="pill" title="Reactions">
               <ion-icon name="heart-outline"></ion-icon>
               <span>{{ reactionsLabel }}</span>
             </div>
             <button class="edit-btn" (click)="toggleEditPill('reactions')">Edit</button>
-          </ng-container>
-          <ng-template #editReactionsTpl>
+          } @else {
             <ion-item>
               <ion-input [(ngModel)]="reactionsLabel" (keyup.enter)="toggleEditPill('reactions')"></ion-input>
             </ion-item>
             <button class="edit-btn" (click)="toggleEditPill('reactions')">Save</button>
-          </ng-template>
+          }
         </div>
 
         <div class="action-row">
-          <ng-container *ngIf="!editRemixes; else editRemixesTpl">
+          @if (!editRemixes) {
             <div class="pill" title="Remixes">
               <ion-icon name="repeat-outline"></ion-icon>
               <span>{{ remixesLabel }}</span>
             </div>
             <button class="edit-btn" (click)="toggleEditPill('remixes')">Edit</button>
-          </ng-container>
-          <ng-template #editRemixesTpl>
+          } @else {
             <ion-item>
               <ion-input [(ngModel)]="remixesLabel" (keyup.enter)="toggleEditPill('remixes')"></ion-input>
             </ion-item>
             <button class="edit-btn" (click)="toggleEditPill('remixes')">Save</button>
-          </ng-template>
+          }
         </div>
 
         <div class="action-row">
-          <ng-container *ngIf="!editReact; else editReactTpl">
+          @if (!editReact) {
             <div class="pill ghost" title="React">{{ reactLabel }}</div>
             <button class="edit-btn" (click)="toggleEditPill('react')">Edit</button>
-          </ng-container>
-          <ng-template #editReactTpl>
+          } @else {
             <ion-item>
               <ion-input [(ngModel)]="reactLabel" (keyup.enter)="toggleEditPill('react')"></ion-input>
             </ion-item>
             <button class="edit-btn" (click)="toggleEditPill('react')">Save</button>
-          </ng-template>
+          }
         </div>
 
         <div class="action-row">
-          <ng-container *ngIf="!editRemix; else editRemixTpl">
+          @if (!editRemix) {
             <div class="pill ghost" title="Remix">{{ remixLabel }}</div>
             <button class="edit-btn" (click)="toggleEditPill('remix')">Edit</button>
-          </ng-container>
-          <ng-template #editRemixTpl>
+          } @else {
             <ion-item>
               <ion-input [(ngModel)]="remixLabel" (keyup.enter)="toggleEditPill('remix')"></ion-input>
             </ion-item>
             <button class="edit-btn" (click)="toggleEditPill('remix')">Save</button>
-          </ng-template>
+          }
         </div>
       </div>
 

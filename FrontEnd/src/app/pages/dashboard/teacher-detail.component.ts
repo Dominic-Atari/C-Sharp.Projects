@@ -1,36 +1,55 @@
 import { Component, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { IonicModule, PopoverController, AlertController, ToastController } from '@ionic/angular';
 import { ApiService } from '../../services/api.service';
 import { firstValueFrom } from 'rxjs';
 
 @Component({
-  selector: 'app-teacher-detail',
-  standalone: true,
-  imports: [CommonModule, IonicModule],
-  template: `
+    selector: 'app-teacher-detail',
+    imports: [IonicModule],
+    template: `
   <ion-card>
     <ion-card-header>
       <ion-card-title>{{ teacherName }}</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <p *ngIf="!subjects?.length">No subjects assigned.</p>
-      <ion-list *ngIf="subjects?.length">
-        <ion-item *ngFor="let s of subjects">
-          <ion-label>
-            <h3>{{ s.name }}</h3>
-            <p class="muted">Stage: {{ s.stage }}</p>
-            <p *ngIf="s.description">{{ s.description }}</p>
-          </ion-label>
-        </ion-item>
-      </ion-list>
+      @if (!subjects?.length) {
+        <p>No subjects assigned.</p>
+      }
+      @if (subjects?.length) {
+        <ion-list>
+          @for (s of subjects; track s) {
+            <ion-item>
+              <ion-label>
+                <h3>{{ s.name }}</h3>
+                <p class="muted">Stage: {{ s.stage }}</p>
+                @if (s.description) {
+                  <p>{{ s.description }}</p>
+                }
+              </ion-label>
+            </ion-item>
+          }
+        </ion-list>
+      }
       <div style="margin-bottom:8px">
-        <p *ngIf="teacherUsername"><strong>Username:</strong> {{ teacherUsername }}</p>
-        <p *ngIf="schoolName"><strong>School:</strong> {{ schoolName }}</p>
-        <p *ngIf="stageName"><strong>Stage:</strong> {{ stageName }}</p>
-        <p *ngIf="!stageName && stageId"><strong>Stage ID:</strong> {{ stageId }}</p>
-        <p *ngIf="subLevelName"><strong>Sublevel:</strong> {{ subLevelName }}</p>
-        <p *ngIf="!subLevelName && subLevelId"><strong>Sublevel ID:</strong> {{ subLevelId }}</p>
+        @if (teacherUsername) {
+          <p><strong>Username:</strong> {{ teacherUsername }}</p>
+        }
+        @if (schoolName) {
+          <p><strong>School:</strong> {{ schoolName }}</p>
+        }
+        @if (stageName) {
+          <p><strong>Stage:</strong> {{ stageName }}</p>
+        }
+        @if (!stageName && stageId) {
+          <p><strong>Stage ID:</strong> {{ stageId }}</p>
+        }
+        @if (subLevelName) {
+          <p><strong>Sublevel:</strong> {{ subLevelName }}</p>
+        }
+        @if (!subLevelName && subLevelId) {
+          <p><strong>Sublevel ID:</strong> {{ subLevelId }}</p>
+        }
       </div>
       <div style="margin-top:12px;display:flex;gap:8px">
         <ion-button expand="block" color="danger" (click)="confirmDelete()" [disabled]="busy">Delete</ion-button>
@@ -38,7 +57,7 @@ import { firstValueFrom } from 'rxjs';
       </div>
     </ion-card-content>
   </ion-card>
-  `,
+  `
 })
 export class TeacherDetailComponent {
   @Input() teacherId!: string;

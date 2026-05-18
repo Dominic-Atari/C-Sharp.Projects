@@ -10,11 +10,10 @@ import {
 } from '@ionic/angular/standalone';
 
 @Component({
-  selector: 'app-user',
-  standalone: true,
-  imports: [CommonModule, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardContent],
-  templateUrl: './user.page.html',
-  styleUrls: ['./user.page.scss'],
+    selector: 'app-user',
+    imports: [CommonModule, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardContent],
+    templateUrl: './user.page.html',
+    styleUrls: ['./user.page.scss']
 })
 export class UserPage {
   today = new Date();

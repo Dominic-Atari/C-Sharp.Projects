@@ -6,10 +6,9 @@ import { firstValueFrom } from 'rxjs';
 import { CreateNotePage } from '../../pages/create-note/create-note.page';
 
 @Component({
-  selector: 'app-student-learning',
-  standalone: true,
-  imports: [CommonModule, IonicModule],
-  template: `
+    selector: 'app-student-learning',
+    imports: [CommonModule, IonicModule],
+    template: `
   <ion-header>
     <ion-toolbar>
       <ion-title>Study — {{ subjectName || 'Subject' }}</ion-title>
@@ -21,35 +20,47 @@ import { CreateNotePage } from '../../pages/create-note/create-note.page';
       <h2>{{ subjectName }}</h2>
       <p class="hint">Swipe topics → or tap a topic to expand subtopics. Quick practice keeps sessions short and addictive.</p>
     </div>
-
-    <div *ngIf="topics && topics.length" class="topics-strip">
-      <div class="topic" *ngFor="let t of topics" (click)="selectTopic(t)" [class.active]="t.topicId===activeTopicId">
-        <div class="topic-name">{{ t.name || t.subtopic }}</div>
-        <div class="topic-meta">{{ t.subtopic || t.name }}</div>
-        <div class="topic-score"><ion-progress-bar [value]="(t.score ?? 0)/100"></ion-progress-bar><small>{{ t.score ?? '?' }}%</small></div>
-      </div>
-    </div>
-
-    <div *ngIf="activeTopic" class="subtopics">
-      <h3>{{ activeTopic.name || activeTopic.subtopic }}</h3>
-      <div class="sub-list">
-        <div *ngFor="let s of subtopics" class="subcard">
-          <div class="sub-title">{{ s.name || s.subtopic }}</div>
-          <div class="sub-notes" *ngIf="s.notes">{{ s.notes | slice:0:120 }}{{ s.notes?.length > 120 ? '…' : '' }}</div>
-          <div class="sub-actions">
-            <ion-button size="small" (click)="startPractice(s)">Practice</ion-button>
-            <ion-button fill="clear" size="small" (click)="openNotes(s)">Notes</ion-button>
-            <div class="badge">{{ s.score ?? 75 }}%</div>
+  
+    @if (topics && topics.length) {
+      <div class="topics-strip">
+        @for (t of topics; track t) {
+          <div class="topic" (click)="selectTopic(t)" [class.active]="t.topicId===activeTopicId">
+            <div class="topic-name">{{ t.name || t.subtopic }}</div>
+            <div class="topic-meta">{{ t.subtopic || t.name }}</div>
+            <div class="topic-score"><ion-progress-bar [value]="(t.score ?? 0)/100"></ion-progress-bar><small>{{ t.score ?? '?' }}%</small></div>
           </div>
+        }
+      </div>
+    }
+  
+    @if (activeTopic) {
+      <div class="subtopics">
+        <h3>{{ activeTopic.name || activeTopic.subtopic }}</h3>
+        <div class="sub-list">
+          @for (s of subtopics; track s) {
+            <div class="subcard">
+              <div class="sub-title">{{ s.name || s.subtopic }}</div>
+              @if (s.notes) {
+                <div class="sub-notes">{{ s.notes | slice:0:120 }}{{ s.notes?.length > 120 ? '…' : '' }}</div>
+              }
+              <div class="sub-actions">
+                <ion-button size="small" (click)="startPractice(s)">Practice</ion-button>
+                <ion-button fill="clear" size="small" (click)="openNotes(s)">Notes</ion-button>
+                <div class="badge">{{ s.score ?? 75 }}%</div>
+              </div>
+            </div>
+          }
         </div>
       </div>
-    </div>
-
-    <div *ngIf="!topics || !topics.length" class="empty">No topics available yet. Ask your teacher to add topics.</div>
+    }
+  
+    @if (!topics || !topics.length) {
+      <div class="empty">No topics available yet. Ask your teacher to add topics.</div>
+    }
   </ion-content>
   `,
-  styles: [
-    `:host { display:block; }
+    styles: [
+        `:host { display:block; }
      .subject-head { padding:12px 16px; }
      .hint { color: var(--ion-color-medium); margin-top:4px; }
      .topics-strip { display:flex; gap:12px; padding:12px; overflow:auto; }
@@ -64,7 +75,8 @@ import { CreateNotePage } from '../../pages/create-note/create-note.page';
      .sub-actions { display:flex; align-items:center; gap:8px; margin-top:10px }
      .badge { background:#eee; padding:4px 8px; border-radius:12px; font-weight:700; font-size:13px }
      .empty { padding:18px; color:var(--ion-color-medium) }
-  `]
+  `
+    ]
 })
 export class StudentLearningComponent implements OnInit {
   @Input() schoolId?: string | null;

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardContent, IonItem, IonLabel, IonInput, IonButton, IonText } from '@ionic/angular/standalone';
 import { Router } from '@angular/router';
@@ -7,11 +7,10 @@ import { firstValueFrom } from 'rxjs';
 import { ApiService } from '../../services/api.service';
 
 @Component({
-  selector: 'app-school-edit',
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardContent, IonItem, IonLabel, IonInput, IonButton, IonText],
-  templateUrl: './school-edit.page.html',
-  styleUrls: ['./school-edit.page.scss']
+    selector: 'app-school-edit',
+    imports: [ReactiveFormsModule, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardContent, IonItem, IonLabel, IonInput, IonButton, IonText],
+    templateUrl: './school-edit.page.html',
+    styleUrls: ['./school-edit.page.scss']
 })
 export class SchoolEditPage implements OnInit {
   busy = false;

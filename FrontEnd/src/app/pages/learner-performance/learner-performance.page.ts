@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { IonicModule } from '@ionic/angular';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../services/api.service';
@@ -8,11 +8,10 @@ import { TopicPerformanceComponent } from '../../components/topic-performance/to
 import { StudentLearningComponent } from '../../components/student-learning/student-learning.component';
 
 @Component({
-  selector: 'app-learner-performance',
-  standalone: true,
-  imports: [CommonModule, IonicModule],
-  templateUrl: './learner-performance.page.html',
-  styleUrls: ['./learner-performance.page.scss']
+    selector: 'app-learner-performance',
+    imports: [IonicModule],
+    templateUrl: './learner-performance.page.html',
+    styleUrls: ['./learner-performance.page.scss']
 })
 export class LearnerPerformancePage implements OnInit, OnDestroy {
   userId?: string | null;

@@ -9,26 +9,32 @@
 
 <ion-content class="chat-wrap" [fullscreen]="true">
   <div class="summary">
-    <div class="group" *ngFor="let g of groups">
-      <div class="level">{{ g.level }}</div>
-      <div class="avg">Avg: <strong>{{ g.average }}%</strong></div>
-      <div class="bar"><div class="fill" [style.width.%]="g.average"></div></div>
-      <div class="count">{{ g.students.length }} {{ g.students.length === 1 ? 'learner' : 'learners' }}</div>
-      <div class="students-list">
-        <div *ngFor="let st of g.students" class="student-row">
-          <button class="student-link" (click)="openLearner(st)">{{ st.name }}</button>
-          <ion-button size="small" fill="clear" class="student-topics-btn" (click)="openLearnerTopics(st); $event.stopPropagation()">Topics</ion-button>
+    @for (g of groups; track g) {
+      <div class="group">
+        <div class="level">{{ g.level }}</div>
+        <div class="avg">Avg: <strong>{{ g.average }}%</strong></div>
+        <div class="bar"><div class="fill" [style.width.%]="g.average"></div></div>
+        <div class="count">{{ g.students.length }} {{ g.students.length === 1 ? 'learner' : 'learners' }}</div>
+        <div class="students-list">
+          @for (st of g.students; track st) {
+            <div class="student-row">
+              <button class="student-link" (click)="openLearner(st)">{{ st.name }}</button>
+              <ion-button size="small" fill="clear" class="student-topics-btn" (click)="openLearnerTopics(st); $event.stopPropagation()">Topics</ion-button>
+            </div>
+          }
         </div>
       </div>
-    </div>
+    }
   </div>
 
   <div class="messages">
-    <div *ngFor="let m of messages" class="msg" [ngClass]="{ 'system': m.from==='system', 'teacher': m.from==='teacher' }">
-      <div class="meta"><span class="from">{{ m.from === 'system' ? 'System' : (m.from === 'teacher' ? 'You' : 'Learner') }}</span>
+    @for (m of messages; track m) {
+      <div class="msg" [ngClass]="{ 'system': m.from==='system', 'teacher': m.from==='teacher' }">
+        <div class="meta"><span class="from">{{ m.from === 'system' ? 'System' : (m.from === 'teacher' ? 'You' : 'Learner') }}</span>
         <span class="time">{{ m.time || '' }}</span></div>
-      <div class="bubble">{{ m.text }}</div>
-    </div>
+        <div class="bubble">{{ m.text }}</div>
+      </div>
+    }
   </div>
 </ion-content>
 

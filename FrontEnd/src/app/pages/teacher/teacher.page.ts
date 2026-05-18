@@ -64,11 +64,10 @@ interface StoryCard {
  
 
 @Component({
-  selector: 'app-teacher',
-  standalone: true,
-  imports: [CommonModule, FormsModule, IonicModule, RouterModule],
-  templateUrl: './teacher.page.html',
-  styleUrls: ['./teacher.page.scss'],
+    selector: 'app-teacher',
+    imports: [CommonModule, FormsModule, IonicModule, RouterModule],
+    templateUrl: './teacher.page.html',
+    styleUrls: ['./teacher.page.scss']
 })
 export class TeacherPage implements OnInit, OnDestroy {
   private readonly STORIES_KEY = 'nile.stories';

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { IonButton, IonCard, IonCardContent, IonContent, IonHeader, IonInput, IonItem, IonLabel, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 import { Router } from '@angular/router';
@@ -7,11 +7,10 @@ import { firstValueFrom } from 'rxjs';
 import { ApiService, CreateCourseRequest } from '../../services/api.service';
 
 @Component({
-  selector: 'app-create-course',
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardContent, IonItem, IonLabel, IonInput, IonButton],
-  templateUrl: './create-course.page.html',
-  styleUrls: ['./create-course.page.scss'],
+    selector: 'app-create-course',
+    imports: [ReactiveFormsModule, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardContent, IonItem, IonLabel, IonInput, IonButton],
+    templateUrl: './create-course.page.html',
+    styleUrls: ['./create-course.page.scss']
 })
 export class CreateCoursePage {
   courseForm = this.fb.group({ title: ['', Validators.required], summary: [''], level: [''], subjectId: [''] });

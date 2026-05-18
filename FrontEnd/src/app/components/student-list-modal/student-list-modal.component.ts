@@ -1,22 +1,21 @@
 import { Component, Input, OnChanges } from '@angular/core';
 import { IonicModule, ModalController } from '@ionic/angular';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-student-list-modal',
-  standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule],
-  template: `
+    selector: 'app-student-list-modal',
+    imports: [IonicModule, FormsModule],
+    template: `
     <ion-header>
       <ion-toolbar>
         <ion-title>{{ (students?.length ?? 0) }} {{ (students?.length ?? 0) === 1 ? 'learner' : 'learners' }}</ion-title>
         <ion-buttons slot="start">
           <ion-button fill="clear" size="small" title="Search" (click)="toggleSearch()">
-              <ion-icon name="search-outline"></ion-icon>
-              <span style="margin-left:6px">Search</span>
-            </ion-button>
+            <ion-icon name="search-outline"></ion-icon>
+            <span style="margin-left:6px">Search</span>
+          </ion-button>
         </ion-buttons>
         <ion-buttons slot="end">
           <ion-button (click)="close()">Close</ion-button>
@@ -26,27 +25,37 @@ import { Router } from '@angular/router';
     <ion-content>
       <!-- learners preview + optional search -->
       <div style="padding:12px">
-        <ion-searchbar *ngIf="showSearch" placeholder="Search learners" [(ngModel)]="query" (ionInput)="onSearch($event)"></ion-searchbar>
+        @if (showSearch) {
+          <ion-searchbar placeholder="Search learners" [(ngModel)]="query" (ionInput)="onSearch($event)"></ion-searchbar>
+        }
         <!-- Show quick list of learner names below the search bar -->
         <div style="padding:0 0 12px 0;">
           <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
             <!-- stable preview of the first N learners -->
-            <ion-chip *ngFor="let s of preview" (click)="openPerformance(s)" style="cursor:pointer">
-              <ion-label>{{ displayName(s) }}</ion-label>
-            </ion-chip>
-            <small *ngIf="(students?.length ?? 0) > defaultDisplayLimit" style="align-self:center;color:var(--ion-color-medium);">+{{ (students?.length ?? 0) - defaultDisplayLimit }} more</small>
+            @for (s of preview; track s) {
+              <ion-chip (click)="openPerformance(s)" style="cursor:pointer">
+                <ion-label>{{ displayName(s) }}</ion-label>
+              </ion-chip>
+            }
+            @if ((students?.length ?? 0) > defaultDisplayLimit) {
+              <small style="align-self:center;color:var(--ion-color-medium);">+{{ (students?.length ?? 0) - defaultDisplayLimit }} more</small>
+            }
           </div>
         </div>
       </div>
       <ion-list>
-          <ion-item *ngFor="let s of display">
-          <ion-label (click)="openPerformance(s)" style="cursor:pointer">{{ displayName(s) }}</ion-label>
-          <ion-button slot="end" fill="clear" (click)="openPerformance(s)">View</ion-button>
-        </ion-item>
-        <ion-item *ngIf="!students || students.length === 0">No learners found</ion-item>
+        @for (s of display; track s) {
+          <ion-item>
+            <ion-label (click)="openPerformance(s)" style="cursor:pointer">{{ displayName(s) }}</ion-label>
+            <ion-button slot="end" fill="clear" (click)="openPerformance(s)">View</ion-button>
+          </ion-item>
+        }
+        @if (!students || students.length === 0) {
+          <ion-item>No learners found</ion-item>
+        }
       </ion-list>
     </ion-content>
-  `
+    `
 })
 export class StudentListModalComponent implements OnChanges {
   @Input() students?: Array<any> | null;

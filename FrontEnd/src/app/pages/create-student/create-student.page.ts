@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { IonButton, IonCard, IonCardContent, IonContent, IonHeader, IonInput, IonItem, IonLabel, IonTitle, IonToolbar, IonSelect, IonSelectOption } from '@ionic/angular/standalone';
 import { Router } from '@angular/router';
@@ -7,11 +7,10 @@ import { firstValueFrom } from 'rxjs';
 import { ApiService, CreatePersonRequest, StageDetails } from '../../services/api.service';
 
 @Component({
-  selector: 'app-create-student',
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardContent, IonItem, IonLabel, IonInput, IonButton, IonSelect, IonSelectOption],
-  templateUrl: './create-student.page.html',
-  styleUrls: ['./create-student.page.scss'],
+    selector: 'app-create-student',
+    imports: [ReactiveFormsModule, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardContent, IonItem, IonLabel, IonInput, IonButton, IonSelect, IonSelectOption],
+    templateUrl: './create-student.page.html',
+    styleUrls: ['./create-student.page.scss']
 })
 export class CreateStudentPage implements OnInit {
   stages: StageDetails[] = [];
