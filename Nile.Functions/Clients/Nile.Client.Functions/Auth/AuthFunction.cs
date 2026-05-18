@@ -7,10 +7,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Nile.Database.DataContracts;
 using Nile.Database.Entities;
-using Nile.Functions.Functions.Infrastructure;
-using Nile.Functions.Functions.Models;
+// Alias to avoid clash with the project-wide `User = ...DataContract.V1.User` namespace alias.
+using EFUser = Nile.Database.Entities.User;
 
-namespace Nile.Functions.Functions;
+namespace Nile.Client.Functions.Auth;
 
 public class AuthFunction
 {
@@ -31,7 +31,6 @@ public class AuthFunction
     public async Task<HttpResponseData> RegisterHead(
         [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "auth/register-head")] HttpRequestData req)
     {
-        // Require API key if configured
         var unauthorized = await AuthGuard.IsAuthorized(req, _config);
         if (unauthorized != null) return unauthorized;
 
@@ -42,14 +41,12 @@ public class AuthFunction
         }
 
         var username = payload.Username?.Trim();
-        // Ensure username fits DB schema (NVARCHAR(15)) to avoid truncation errors
         const int MaxUsernameLength = 15;
         if (!string.IsNullOrWhiteSpace(username) && username.Length > MaxUsernameLength)
         {
             _logger?.LogInformation("RegisterHead: trimming username from {Orig} to {Trimmed}", username, username.Substring(0, MaxUsernameLength));
             username = username.Substring(0, MaxUsernameLength);
         }
-        // Normalize username for consistent lookups (trim already applied)
         if (!string.IsNullOrWhiteSpace(username))
         {
             username = username.ToLowerInvariant();
@@ -80,7 +77,7 @@ public class AuthFunction
         var now = DateTimeOffset.UtcNow;
         var userId = Guid.NewGuid();
 
-        var user = new User
+        var user = new EFUser
         {
             Id = userId,
             Username = username,
@@ -166,11 +163,9 @@ public class AuthFunction
         var roles = new[] { "HeadTeacher" };
         var token = JwtTokenService.IssueToken(user, roles, schoolId, _config);
 
-        // Suggest client redirect destination for HeadTeacher users
         string? redirectUrl = null;
         if (roles.Any(r => string.Equals(r, "HeadTeacher", StringComparison.OrdinalIgnoreCase)))
         {
-            // SPA route on the client; frontend should navigate to this path after login
             redirectUrl = "/admin";
         }
 
@@ -230,7 +225,6 @@ public class AuthFunction
             redirectUrl = "/admin";
         }
 
-        // attempt to resolve school name/logo for convenience in UI
         string? schoolName = null;
         string? schoolLogo = null;
         if (schoolId.HasValue)
@@ -255,39 +249,7 @@ public class AuthFunction
     private async Task<HttpResponseData> Error(HttpRequestData req, HttpStatusCode status, string message, object? details = null)
     {
         var res = req.CreateResponse(status);
-        AddCorsFallback(res, req);
         await res.WriteAsJsonAsync(new ApiResponse<object>(null, new ApiError(message, details)));
         return res;
-    }
-
-    // Temporary per-endpoint fallback: echo Origin into response when allowed.
-    // This helps browsers read responses while middleware/host issues are resolved.
-    private void AddCorsFallback(HttpResponseData res, HttpRequestData req)
-    {
-        try
-        {
-            if (!req.Headers.TryGetValues("Origin", out var origins)) return;
-            var origin = origins.FirstOrDefault();
-            if (string.IsNullOrWhiteSpace(origin)) return;
-
-            var configured = _config["Cors:AllowedOrigins"] ?? _config["CORS"] ?? _config["Host:CORS"];
-            if (string.IsNullOrWhiteSpace(configured)) return;
-
-            var allowed = configured.Split(new[] { ',', ';', ' ' }, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
-            if (!allowed.Any(a => string.Equals(a, "*", StringComparison.Ordinal) || string.Equals(a, origin, StringComparison.OrdinalIgnoreCase))) return;
-
-            if (!res.Headers.TryGetValues("Access-Control-Allow-Origin", out _))
-                res.Headers.Add("Access-Control-Allow-Origin", origin);
-            if (!res.Headers.TryGetValues("Vary", out _))
-                res.Headers.Add("Vary", "Origin");
-            if (!res.Headers.TryGetValues("Access-Control-Allow-Headers", out _))
-                res.Headers.Add("Access-Control-Allow-Headers", "Content-Type, Authorization, x-api-key");
-            if (!res.Headers.TryGetValues("Access-Control-Allow-Methods", out _))
-                res.Headers.Add("Access-Control-Allow-Methods", "GET,POST,PUT,PATCH,DELETE,OPTIONS");
-        }
-        catch
-        {
-            // Best-effort only; don't throw from error handling
-        }
     }
 }

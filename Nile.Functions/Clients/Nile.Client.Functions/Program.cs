@@ -1,4 +1,6 @@
-﻿using Microsoft.Azure.Functions.Worker;
+﻿using System.Text.Json;
+using Azure.Core.Serialization;
+using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -26,6 +28,16 @@ var host = new HostBuilder()
     .ConfigureFunctionsWebApplication()
     .ConfigureServices((context, services) =>
     {
+        // Emit/accept camelCase JSON everywhere so HTTP responses match the
+        // frontend's lowercased-key expectations (e.g. res.token, res.roles).
+        // JsonSerializerDefaults.Web sets PropertyNamingPolicy=CamelCase and
+        // PropertyNameCaseInsensitive=true in one go.
+        services.Configure<WorkerOptions>(options =>
+        {
+            options.Serializer = new JsonObjectSerializer(
+                new JsonSerializerOptions(JsonSerializerDefaults.Web));
+        });
+
         services.AddSingleton<IConfiguration>(sp => context.Configuration);
         services.AddSingleton<ConfigUtility>();
         services.AddSingleton<IConfigUtility>(sp => sp.GetRequiredService<ConfigUtility>());
