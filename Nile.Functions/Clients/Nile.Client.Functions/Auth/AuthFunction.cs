@@ -166,7 +166,7 @@ public class AuthFunction
         string? redirectUrl = null;
         if (roles.Any(r => string.Equals(r, "HeadTeacher", StringComparison.OrdinalIgnoreCase)))
         {
-            redirectUrl = "/admin";
+            redirectUrl = "/dashboard";
         }
 
         var res = req.CreateResponse(HttpStatusCode.Created);
@@ -222,7 +222,7 @@ public class AuthFunction
         string? redirectUrl = null;
         if (roles.Any(r => string.Equals(r, "HeadTeacher", StringComparison.OrdinalIgnoreCase)))
         {
-            redirectUrl = "/admin";
+            redirectUrl = "/dashboard";
         }
 
         string? schoolName = null;

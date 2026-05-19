@@ -60,31 +60,12 @@
             }
           </ion-select>
         </ion-item>
-        <ion-item>
-          <ion-label>Stage (optional)</ion-label>
-          <ion-select placeholder="Select stage" (ionChange)="onStageSelected($any($event).detail.value)" formControlName="stageId">
-            @for (st of stages; track st) {
-              <ion-select-option [value]="st.stageId">{{ st.name }}</ion-select-option>
-            }
-          </ion-select>
-        </ion-item>
         @if (allSublevels.length) {
           <ion-item>
             <ion-label position="stacked">Or choose existing Sublevel (optional)</ion-label>
             <ion-select placeholder="Choose sublevel" (ionChange)="onAllSublevelSelected($any($event).detail.value)">
               @for (a of allSublevels; track a) {
                 <ion-select-option [value]="a.subLevelId">{{ a.stageName ? (a.stageName + ' / ') : '' }}{{ a.name }}</ion-select-option>
-              }
-            </ion-select>
-          </ion-item>
-        }
-
-        @if (selectedStageId) {
-          <ion-item>
-            <ion-label>Sublevel (optional)</ion-label>
-            <ion-select formControlName="subLevelId" placeholder="Select sublevel">
-              @for (sl of subLevels[selectedStageId] || []; track sl) {
-                <ion-select-option [value]="sl.subLevelId">{{ sl.name }}</ion-select-option>
               }
             </ion-select>
           </ion-item>

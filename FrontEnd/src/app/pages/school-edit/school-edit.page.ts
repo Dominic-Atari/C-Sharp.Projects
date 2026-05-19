@@ -68,19 +68,18 @@ export class SchoolEditPage implements OnInit {
       const res = await firstValueFrom(this.api.updateSchool(this.auth.schoolId, payload));
       if (res && res.schoolId) {
         this.message = 'Saved';
-        // update local auth
-        const a = this.api.loadAuth() || {};
-        (a as any).schoolName = payload.schoolName;
-        (a as any).schoolAddress = payload.schoolAddress;
-        (a as any).city = payload.city;
-        (a as any).state = payload.state;
-        (a as any).country = payload.country;
-        (a as any).county = payload.county;
-        (a as any).zipCode = payload.zipCode;
-        (a as any).phoneNumber = payload.phoneNumber;
-        (a as any).email = payload.email;
-        (a as any).description = payload.description;
-        localStorage.setItem('nile.auth', JSON.stringify(a));
+        this.api.mergeAuth({
+          schoolName: payload.schoolName,
+          schoolAddress: payload.schoolAddress,
+          city: payload.city,
+          state: payload.state,
+          country: payload.country,
+          county: payload.county,
+          zipCode: payload.zipCode,
+          phoneNumber: payload.phoneNumber,
+          email: payload.email,
+          description: payload.description,
+        });
         setTimeout(() => this.router.navigateByUrl('/dashboard'), 500);
       }
     } catch (err: any) {

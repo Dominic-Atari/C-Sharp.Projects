@@ -65,7 +65,7 @@ export interface SchoolDetails {
   description?: string | null;
 }
 
-interface StoredAuth {
+export interface StoredAuth {
   token: string;
   userId: string;
   schoolId: string | null;
@@ -494,6 +494,7 @@ export class ApiService {
     const userId = anyRes.userId ?? anyRes.UserId ?? anyRes.data?.userId ?? anyRes.data?.UserId ?? '';
     const schoolId = anyRes.schoolId ?? anyRes.SchoolId ?? anyRes.data?.schoolId ?? anyRes.data?.SchoolId ?? null;
     const schoolName = anyRes.schoolName ?? anyRes.SchoolName ?? anyRes.data?.schoolName ?? anyRes.data?.SchoolName ?? null;
+    const schoolLogoUrl = anyRes.schoolLogoUrl ?? anyRes.SchoolLogoUrl ?? anyRes.data?.schoolLogoUrl ?? anyRes.data?.SchoolLogoUrl ?? null;
     let roles: any = anyRes.roles ?? anyRes.Roles ?? anyRes.data?.roles ?? anyRes.data?.Roles ?? [];
     // normalize roles to a string[] regardless of server shape (string or array)
     if (!roles) roles = [];
@@ -512,7 +513,7 @@ export class ApiService {
       username: username as string,
       schoolName: (schoolName as string) ?? null,
       // additional fields may be attached by other flows; default to null
-      schoolLogoUrl: null,
+      schoolLogoUrl: (schoolLogoUrl as string) ?? null,
       schoolAddress: null,
       city: null,
       state: null,
@@ -528,6 +529,17 @@ export class ApiService {
       localStorage.setItem(this.authKey, JSON.stringify(toStore));
     } catch (e) {
       console.error('Failed to save auth to localStorage', e);
+    }
+  }
+
+  mergeAuth(partial: Partial<StoredAuth>): void {
+    const current = this.loadAuth();
+    if (!current) return;
+    const merged: StoredAuth = { ...current, ...partial };
+    try {
+      localStorage.setItem(this.authKey, JSON.stringify(merged));
+    } catch (e) {
+      console.error('Failed to merge auth to localStorage', e);
     }
   }
 

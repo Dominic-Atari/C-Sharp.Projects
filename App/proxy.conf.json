@@ -1,6 +1,18 @@
 {
-  "/api": {
+  "/api/auth": {
     "target": "http://localhost:7071",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/api/V1": {
+    "target": "http://localhost:7071",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/api": {
+    "target": "http://localhost:7072",
     "secure": false,
     "changeOrigin": true,
     "logLevel": "debug"
