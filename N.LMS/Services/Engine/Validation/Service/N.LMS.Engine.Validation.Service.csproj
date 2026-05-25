@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>N.LMS.Engine.Validation.Service</AssemblyName>
+    <RootNamespace>N.LMS.Engine.Validation.Service</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Interface\N.LMS.Engine.Validation.Interface.csproj" />
+    <ProjectReference Include="..\..\..\..\Common\N.LMS.Common.Interface\N.LMS.Common.Interface.csproj" />
+  </ItemGroup>
+</Project>

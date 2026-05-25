@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>N.LMS.Ifx.Interceptor</AssemblyName>
+    <RootNamespace>N.LMS.Ifx.Interceptor</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Castle.Core" Version="5.1.1" />
+    <PackageReference Include="Castle.Core.AsyncInterceptor" Version="2.1.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\N.LMS.Common.Interface\N.LMS.Common.Interface.csproj" />
+    <ProjectReference Include="..\..\Common\N.LMS.Common.Service\N.LMS.Common.Service.csproj" />
+    <ProjectReference Include="..\..\Services\Engine\Validation\Interface\N.LMS.Engine.Validation.Interface.csproj" />
+    <ProjectReference Include="..\..\Services\Utility\Logging\Interface\N.LMS.Utility.Logging.Interface.csproj" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>N.LMS.Utility.Logging.Interface</AssemblyName>
+    <RootNamespace>N.LMS.Utility.Logging.Interface</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Common\N.LMS.Common.Interface\N.LMS.Common.Interface.csproj" />
+  </ItemGroup>
+</Project>

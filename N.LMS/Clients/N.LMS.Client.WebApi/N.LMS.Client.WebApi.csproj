@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <AssemblyName>N.LMS.Client.WebApi</AssemblyName>
+    <RootNamespace>N.LMS.Client.WebApi</RootNamespace>
+    <UserSecretsId>n-lms-client-webapi</UserSecretsId>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- Common -->
+    <ProjectReference Include="..\..\Common\N.LMS.Common.Interface\N.LMS.Common.Interface.csproj" />
+    <ProjectReference Include="..\..\Common\N.LMS.Common.Service\N.LMS.Common.Service.csproj" />
+
+    <!-- Managers (subsystems) -->
+    <ProjectReference Include="..\..\Services\Manager\Admin\Interface\N.LMS.Manager.Admin.Interface.csproj" />
+    <ProjectReference Include="..\..\Services\Manager\Admin\Service\N.LMS.Manager.Admin.Service.csproj" />
+    <ProjectReference Include="..\..\Services\Manager\Learning\Interface\N.LMS.Manager.Learning.Interface.csproj" />
+    <ProjectReference Include="..\..\Services\Manager\Learning\Service\N.LMS.Manager.Learning.Service.csproj" />
+
+    <!-- Engines -->
+    <ProjectReference Include="..\..\Services\Engine\Validation\Service\N.LMS.Engine.Validation.Service.csproj" />
+
+    <!-- Utilities -->
+    <ProjectReference Include="..\..\Services\Utility\Context\Service\N.LMS.Utility.Context.Service.csproj" />
+    <ProjectReference Include="..\..\Services\Utility\DateTime\Service\N.LMS.Utility.DateTime.Service.csproj" />
+    <ProjectReference Include="..\..\Services\Utility\Logging\Service\N.LMS.Utility.Logging.Service.csproj" />
+
+    <!-- Accessors (leaves) — Service hosts referenced so registrations are reachable -->
+    <ProjectReference Include="..\..\Services\Accessor\User\Service\N.LMS.Accessor.User.Service.csproj" />
+    <ProjectReference Include="..\..\Services\Accessor\Course\Service\N.LMS.Accessor.Course.Service.csproj" />
+    <ProjectReference Include="..\..\Services\Accessor\Enrollment\Service\N.LMS.Accessor.Enrollment.Service.csproj" />
+    <ProjectReference Include="..\..\Services\Accessor\Module\Service\N.LMS.Accessor.Module.Service.csproj" />
+    <ProjectReference Include="..\..\Services\Accessor\Lesson\Service\N.LMS.Accessor.Lesson.Service.csproj" />
+    <ProjectReference Include="..\..\Services\Accessor\System\Service\N.LMS.Accessor.System.Service.csproj" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <AssemblyName>N.LMS.Database.DbUp</AssemblyName>
+    <RootNamespace>N.LMS.Database.DbUp</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="dbup-mysql" Version="5.0.40" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Scripts\*.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="appsettings.json" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="appsettings.Development.json" CopyToOutputDirectory="PreserveNewest" Condition="Exists('appsettings.Development.json')" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\N.LMS.Database.Factory\N.LMS.Database.Factory.csproj" />
+  </ItemGroup>
+</Project>

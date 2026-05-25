@@ -1,0 +1,12 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "dotnet",
+      "task": "watch Nile.DbUp",
+      "file": "/Users/dominicobiala/projects/NileApp/Nile.Functions/Data/Nile.DbUp/Nile.DbUp.csproj",
+      "problemMatcher": [],
+      "label": "dotnet: watch Nile.DbUp"
+    }
+  ]
+}

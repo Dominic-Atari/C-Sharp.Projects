@@ -1,0 +1,63 @@
+services:
+  # MySQL 8 — the NileDB schema lives here.
+  nile-db:
+    image: mysql:8.0
+    container_name: n-lms-db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: NileDB
+    ports:
+      - "3306:3306"
+    volumes:
+      - nile-db-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    networks:
+      - n-lms
+
+  # DbUp migrator — runs every script in Database/.../Scripts/ once, then exits.
+  nile-dbup:
+    build:
+      context: .
+      dockerfile: Database/N.LMS.Database.DbUp/Dockerfile
+    container_name: n-lms-dbup
+    environment:
+      N_LMS_NILE_DB_CONNECTION_STRING: "Server=nile-db;Port=3306;Database=NileDB;User=root;Password=root;"
+    depends_on:
+      nile-db:
+        condition: service_healthy
+    restart: "no"
+    networks:
+      - n-lms
+
+  # ASP.NET Core 8 WebApi.
+  nile-api:
+    build:
+      context: .
+      dockerfile: Clients/N.LMS.Client.WebApi/Dockerfile
+    container_name: n-lms-api
+    restart: unless-stopped
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://+:8080
+      N_LMS_NILE_DB_CONNECTION_STRING: "Server=nile-db;Port=3306;Database=NileDB;User=root;Password=root;"
+    ports:
+      - "5180:8080"
+    depends_on:
+      nile-db:
+        condition: service_healthy
+      nile-dbup:
+        condition: service_completed_successfully
+    networks:
+      - n-lms
+
+volumes:
+  nile-db-data:
+
+networks:
+  n-lms:
+    driver: bridge
