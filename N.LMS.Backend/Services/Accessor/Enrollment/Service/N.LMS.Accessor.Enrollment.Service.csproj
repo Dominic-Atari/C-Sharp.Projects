@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>N.LMS.Accessor.Enrollment.Service</AssemblyName>
+    <RootNamespace>N.LMS.Accessor.Enrollment.Service</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Interface\N.LMS.Accessor.Enrollment.Interface.csproj" />
+    <ProjectReference Include="..\..\..\..\Common\N.LMS.Common.Interface\N.LMS.Common.Interface.csproj" />
+    <ProjectReference Include="..\..\..\..\Database\N.LMS.Database.Interface\N.LMS.Database.Interface.csproj" />
+    <ProjectReference Include="..\..\..\..\Database\N.LMS.Database.Factory\N.LMS.Database.Factory.csproj" />
+  </ItemGroup>
+</Project>

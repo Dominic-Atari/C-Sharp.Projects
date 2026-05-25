@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+
+jobs:
+  backend:
+    name: Backend (dotnet build)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: Nile.Functions
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - run: dotnet restore Nile.Functions.Only.sln
+      - run: dotnet build Nile.Functions.Only.sln --configuration Release --no-restore
+
+  frontend-app:
+    name: App/ (ng build)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: App
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+          cache-dependency-path: App/package-lock.json
+      - run: npm ci
+      - run: npm run build
+
+  frontend-redesign:
+    name: FrontEnd/ (ng build)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: FrontEnd
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+          cache-dependency-path: FrontEnd/package-lock.json
+      - run: npm ci
+      - run: npm run build

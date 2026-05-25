@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>N.LMS.Manager.Tests</AssemblyName>
+    <RootNamespace>N.LMS.Manager.Tests</RootNamespace>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
+    <PackageReference Include="xunit" Version="2.7.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.5.7" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Admin\Interface\N.LMS.Manager.Admin.Interface.csproj" />
+    <ProjectReference Include="..\Learning\Interface\N.LMS.Manager.Learning.Interface.csproj" />
+    <ProjectReference Include="..\..\..\Common\N.LMS.Common.Interface\N.LMS.Common.Interface.csproj" />
+  </ItemGroup>
+</Project>

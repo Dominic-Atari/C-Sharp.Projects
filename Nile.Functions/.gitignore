@@ -1,7 +1,0 @@
-# Local-only settings (do not commit secrets)
-Functions/local.settings.json
-Data/Nile.DbUp/local.settings.json
-
-# IDE files
-.idea/
-.vscode/

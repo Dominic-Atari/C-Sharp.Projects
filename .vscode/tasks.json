@@ -1,0 +1,12 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "dotnet",
+      "task": "watch N.LMS.Database.DbUp",
+      "file": "/Users/dominicobiala/projects/NileApp/N.LMS.Backend/Database/N.LMS.Database.DbUp/N.LMS.Database.DbUp.csproj",
+      "problemMatcher": [],
+      "label": "dotnet: watch N.LMS.Database.DbUp"
+    }
+  ]
+}

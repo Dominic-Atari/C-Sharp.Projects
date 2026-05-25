@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>N.LMS.Manager.Admin.Service</AssemblyName>
+    <RootNamespace>N.LMS.Manager.Admin.Service</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Interface\N.LMS.Manager.Admin.Interface.csproj" />
+    <ProjectReference Include="..\..\..\..\Common\N.LMS.Common.Interface\N.LMS.Common.Interface.csproj" />
+    <ProjectReference Include="..\..\..\..\Ifx\N.LMS.Ifx.Interceptor\N.LMS.Ifx.Interceptor.csproj" />
+    <ProjectReference Include="..\..\..\Accessor\User\Interface\N.LMS.Accessor.User.Interface.csproj" />
+    <ProjectReference Include="..\..\..\Accessor\System\Interface\N.LMS.Accessor.System.Interface.csproj" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>N.LMS.Accessor.Tests</AssemblyName>
+    <RootNamespace>N.LMS.Accessor.Tests</RootNamespace>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
+    <PackageReference Include="xunit" Version="2.7.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.5.7" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\User\Interface\N.LMS.Accessor.User.Interface.csproj" />
+    <ProjectReference Include="..\Course\Interface\N.LMS.Accessor.Course.Interface.csproj" />
+    <ProjectReference Include="..\Enrollment\Interface\N.LMS.Accessor.Enrollment.Interface.csproj" />
+    <ProjectReference Include="..\Module\Interface\N.LMS.Accessor.Module.Interface.csproj" />
+    <ProjectReference Include="..\Lesson\Interface\N.LMS.Accessor.Lesson.Interface.csproj" />
+    <ProjectReference Include="..\System\Interface\N.LMS.Accessor.System.Interface.csproj" />
+    <ProjectReference Include="..\..\..\Common\N.LMS.Common.Interface\N.LMS.Common.Interface.csproj" />
+  </ItemGroup>
+</Project>
