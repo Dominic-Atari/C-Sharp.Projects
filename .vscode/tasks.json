@@ -3,10 +3,10 @@
   "tasks": [
     {
       "type": "dotnet",
-      "task": "watch Nile.DbUp",
-      "file": "/Users/dominicobiala/projects/NileApp/Nile.Functions/Data/Nile.DbUp/Nile.DbUp.csproj",
+      "task": "watch N.LMS.Database.DbUp",
+      "file": "/Users/dominicobiala/projects/NileApp/N.LMS.Backend/Database/N.LMS.Database.DbUp/N.LMS.Database.DbUp.csproj",
       "problemMatcher": [],
-      "label": "dotnet: watch Nile.DbUp"
+      "label": "dotnet: watch N.LMS.Database.DbUp"
     }
   ]
 }

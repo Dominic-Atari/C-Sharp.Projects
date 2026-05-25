@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-# Build context: the N.LMS/ folder (so ProjectReferences across the solution resolve).
+# Build context: the N.LMS.Backend/ folder (so ProjectReferences across the solution resolve).
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src

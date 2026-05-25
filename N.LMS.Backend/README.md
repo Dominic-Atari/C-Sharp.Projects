@@ -5,7 +5,7 @@ Modular .NET 8 Learning Management System: `WebApi` ↔ `Manager` (intercepted) 
 ## Solution layout
 
 ```
-N.LMS/
+N.LMS.Backend/
 ├── Database/                                                ← EF entities, factory, DbUp migrations
 ├── Common/
 │   ├── N.LMS.Common.Interface/                              ← contracts, markers (IComponent, IUtility, IEngine, IProxyEnabledSubsystem)
@@ -157,8 +157,8 @@ ServiceProxyHost.Configure(app.Services);                            // root pro
 ## Build, test, run
 
 ```bash
-dotnet build N.LMS.sln                              # 38 projects, ~317 source files, 0 warnings, 0 errors
-dotnet test  N.LMS.sln                              # 25/25 tests pass
+dotnet build N.LMS.Backend.sln                              # 38 projects, ~317 source files, 0 warnings, 0 errors
+dotnet test  N.LMS.Backend.sln                              # 25/25 tests pass
 dotnet run   --project Clients/N.LMS.Client.WebApi  # http://localhost:5180 + Swagger in Development
 ```
 

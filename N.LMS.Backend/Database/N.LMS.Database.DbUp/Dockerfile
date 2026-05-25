@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-# Build context: the N.LMS/ folder.
+# Build context: the N.LMS.Backend/ folder.
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
