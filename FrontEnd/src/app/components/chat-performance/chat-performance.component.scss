@@ -1,8 +1,0 @@
-:host { display:block; }
-.chat-wrap { display:flex; flex-direction:column; height:100%; }
-.summary { padding: 1rem; background: var(--ion-background-color); }
-.group { margin-bottom: 1rem; }
-.students-list { display:flex; gap:0.5rem; flex-wrap:wrap; }
-.student-row { display:flex; gap:0.5rem; align-items:center; }
-.messages { padding: 1rem; overflow:auto; }
-.composer { display:flex; gap:0.5rem; }
