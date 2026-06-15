@@ -1,0 +1,5 @@
+/* Styles for School Edit page - intentionally minimal */
+.page-shell { padding: 12px; }
+.logo-initials { width:40px; height:40px; border-radius:50%; background:#ddd; display:flex; align-items:center; justify-content:center; font-weight:600 }
+.school-menu { position:absolute; right:12px; top:70px; background:#fff; border:1px solid rgba(0,0,0,0.06); box-shadow:0 6px 18px rgba(0,0,0,0.08); border-radius:8px; z-index:1000 }
+.school-logo { background:transparent; border:0; padding:0; cursor:pointer }

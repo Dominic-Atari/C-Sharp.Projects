@@ -7,9 +7,11 @@ public class TeacherSubject
     public Guid SchoolId { get; set; }
     public Guid SubjectId { get; set; }
     public DateTime AssignedAt { get; set; }
+    public Guid? SubLevelId { get; set; }
 
     // Navigation
     public User Teacher { get; set; } = null!;
     public School School { get; set; } = null!;
     public Subject Subject { get; set; } = null!;
+    public SubLevel? SubLevel { get; set; }
 }

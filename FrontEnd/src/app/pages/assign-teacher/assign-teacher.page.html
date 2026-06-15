@@ -1,0 +1,68 @@
+<ion-header translucent="true">
+  <ion-toolbar>
+    <ion-title>Assign teacher to subject</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="page-shell">
+  <ion-card title="Assign teacher to subject form">
+    <ion-card-content>
+      <form [formGroup]="assignForm" (ngSubmit)="assign()">
+        <ion-item>
+          <ion-label position="stacked">Teacher</ion-label>
+          <ion-select formControlName="teacherId">
+            <ion-select-option *ngIf="teachersLoading" disabled>Loading teachers...</ion-select-option>
+            <ion-select-option *ngIf="teachersError" disabled>Error: {{ teachersError }}</ion-select-option>
+            <ion-select-option *ngFor="let t of teachers" [value]="t.userId">{{ t.username }}</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <!-- Reordered: teacher -> level -> sublevel -> subject -->
+        <ion-item>
+          <ion-label>Stage (optional)</ion-label>
+          <ion-select placeholder="Select stage" (ionChange)="onStageSelected($any($event).detail.value)" formControlName="stageId">
+            <ion-select-option *ngFor="let st of stages" [value]="st.stageId">{{ st.name }}</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item *ngIf="selectedStageId">
+          <ion-label>Sublevel (optional)</ion-label>
+          <ion-select formControlName="subLevelId" placeholder="Select sublevel" (ionChange)="onSublevelSelected($any($event).detail.value)">
+            <ion-select-option *ngFor="let sl of subLevels[selectedStageId] || []" [value]="sl.subLevelId">{{ sl.name }}</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Subject</ion-label>
+          <ion-select formControlName="subjectId">
+            <ion-select-option *ngIf="subjectsLoading" disabled>Loading subjects...</ion-select-option>
+            <ion-select-option *ngIf="subjectsError" disabled>Error: {{ subjectsError }}</ion-select-option>
+            <ion-select-option *ngIf="!subjectsLoading && subjectsFiltered.length === 0" disabled>No subjects for selected level/sublevel</ion-select-option>
+            <ion-select-option *ngFor="let s of subjectsFiltered" [value]="s.subjectId">{{ s.name }}</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label>Stage (optional)</ion-label>
+          <ion-select placeholder="Select stage" (ionChange)="onStageSelected($any($event).detail.value)" formControlName="stageId">
+            <ion-select-option *ngFor="let st of stages" [value]="st.stageId">{{ st.name }}</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item *ngIf="allSublevels.length">
+          <ion-label position="stacked">Or choose existing Sublevel (optional)</ion-label>
+          <ion-select placeholder="Choose sublevel" (ionChange)="onAllSublevelSelected($any($event).detail.value)">
+            <ion-select-option *ngFor="let a of allSublevels" [value]="a.subLevelId">{{ a.stageName ? (a.stageName + ' / ') : '' }}{{ a.name }}</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item *ngIf="selectedStageId">
+          <ion-label>Sublevel (optional)</ion-label>
+          <ion-select formControlName="subLevelId" placeholder="Select sublevel">
+            <ion-select-option *ngFor="let sl of subLevels[selectedStageId] || []" [value]="sl.subLevelId">{{ sl.name }}</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-button type="submit" expand="block" [disabled]="busy" title="Assign teacher to subject">Assign</ion-button>
+      </form>
+      <div *ngIf="message" class="feedback success">{{ message }}</div>
+      <div *ngIf="error" class="feedback error">{{ error }}</div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

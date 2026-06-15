@@ -2,6 +2,8 @@
 /App/.angular/
 /App/node_modules/
 /.angular/
+/FrontEnd/.angular/
+/FrontEnd/dist/
 node_modules/
 
 # macOS
@@ -19,3 +21,4 @@ src/environments/environment.ts
 
 # IDE
 .idea/
+.claude/

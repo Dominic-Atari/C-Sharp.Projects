@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "EpghwVAFKNE=",
+  "dgSpecHash": "X4o6Yl+ugUQ=",
   "success": true,
-  "projectFilePath": "/Users/dominicobiala/Downloads/C-Sharp.Projects-Nile.Function/NileApp/Nile.Functions/Functions/obj/Debug/net8.0/WorkerExtensions/WorkerExtensions.csproj",
+  "projectFilePath": "/Users/dominicobiala/projects/NileApp/BackEnd/Nile.Functions/Functions/obj/Debug/net8.0/WorkerExtensions/WorkerExtensions.csproj",
   "expectedPackageFiles": [
     "/Users/dominicobiala/.nuget/packages/microsoft.aspnet.webapi.client/5.2.8/microsoft.aspnet.webapi.client.5.2.8.nupkg.sha512",
     "/Users/dominicobiala/.nuget/packages/microsoft.aspnetcore.authentication.abstractions/2.2.0/microsoft.aspnetcore.authentication.abstractions.2.2.0.nupkg.sha512",

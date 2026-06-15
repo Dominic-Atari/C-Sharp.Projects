@@ -91,6 +91,11 @@ public class DatabaseContext : DatabaseContextBase<DatabaseContext>
             .HasForeignKey(l => l.PostId)
             .OnDelete(DeleteBehavior.Cascade);
 
+        // Make the PostId FK optional to avoid EF warning when Post has a global query filter
+        modelBuilder.Entity<Like>()
+            .Property(l => l.PostId)
+            .IsRequired(false);
+
         // User -> Likes (Restrict: Don't delete user if they have likes)
         modelBuilder.Entity<Like>()
             .HasOne(l => l.User)
@@ -173,12 +178,68 @@ public class DatabaseContext : DatabaseContextBase<DatabaseContext>
 
         // Subjects and teacher assignments
         modelBuilder.Entity<Subject>()
-            .HasIndex(s => new { s.Name, s.Stage })
+            .HasIndex(s => new { s.SchoolId, s.Name, s.Stage })
             .IsUnique();
+        // optional SubLevel relationship for Subjects
+        modelBuilder.Entity<Subject>()
+            .HasOne<SubLevel>(s => s.SubLevel)
+            .WithMany()
+            .HasForeignKey("SubLevelId")
+            .OnDelete(DeleteBehavior.SetNull);
+
+        // Topics
+        modelBuilder.Entity<Topic>()
+            .HasIndex(t => new { t.SubjectId });
+
+        // Automatically filter out soft-deleted topics
+        modelBuilder.Entity<Topic>()
+            .HasQueryFilter(t => !t.IsDeleted);
+
+        modelBuilder.Entity<Topic>()
+            .HasOne(t => t.Subject)
+            .WithMany()
+            .HasForeignKey(t => t.SubjectId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        // SubTopics
+        modelBuilder.Entity<SubTopic>()
+            .HasIndex(st => new { st.TopicId, st.Name })
+            .IsUnique();
+
+        modelBuilder.Entity<SubTopic>()
+            .HasQueryFilter(st => !st.IsDeleted);
+
+        modelBuilder.Entity<SubTopic>()
+            .HasOne(st => st.Topic)
+            .WithMany(t => t.SubTopics)
+            .HasForeignKey(st => st.TopicId)
+            .OnDelete(DeleteBehavior.Cascade);
 
         modelBuilder.Entity<TeacherSubject>()
             .HasIndex(ts => new { ts.UserId, ts.SchoolId, ts.SubjectId })
             .IsUnique();
+
+        // SubLevels (grades within a Stage)
+        modelBuilder.Entity<SubLevel>()
+            .HasIndex(sl => new { sl.StageId, sl.Name })
+            .IsUnique();
+
+        modelBuilder.Entity<SubLevel>()
+            .HasOne(sl => sl.Stage)
+            .WithMany()
+            .HasForeignKey(sl => sl.StageId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        // Stages/Levels
+        modelBuilder.Entity<Stage>()
+            .HasIndex(s => new { s.SchoolId, s.Name })
+            .IsUnique();
+
+        modelBuilder.Entity<Stage>()
+            .HasOne(s => s.School)
+            .WithMany()
+            .HasForeignKey(s => s.SchoolId)
+            .OnDelete(DeleteBehavior.Cascade);
 
         modelBuilder.Entity<TeacherSubject>()
             .HasOne(ts => ts.Teacher)
@@ -217,6 +278,13 @@ public class DatabaseContext : DatabaseContextBase<DatabaseContext>
             .HasForeignKey(l => l.CourseId)
             .OnDelete(DeleteBehavior.Cascade);
 
+        // Story -> SubTopic (optional, clear when subtopic deleted)
+        modelBuilder.Entity<Story>()
+            .HasOne(s => s.SubTopic)
+            .WithMany()
+            .HasForeignKey("SubTopicId")
+            .OnDelete(DeleteBehavior.SetNull);
+
         // Seed LMS roles (idempotent with migrations)
         var headTeacherRoleId = Guid.Parse("4f6e2ad7-8bc0-4b3f-9d4c-4d6c1c6b0f01");
         var studentRoleId = Guid.Parse("b8d9f9e3-7a3e-4c1b-9d7a-2f8d2f0c9e13");
@@ -243,8 +311,12 @@ public class DatabaseContext : DatabaseContextBase<DatabaseContext>
     public DbSet<SchoolMembership> SchoolMemberships => Set<SchoolMembership>();
     public DbSet<Subject> Subjects => Set<Subject>();
     public DbSet<TeacherSubject> TeacherSubjects => Set<TeacherSubject>();
+    public DbSet<Topic> Topics => Set<Topic>();
+    public DbSet<SubTopic> SubTopics => Set<SubTopic>();
     public DbSet<Course> Courses => Set<Course>();
     public DbSet<Lesson> Lessons => Set<Lesson>();
+    public DbSet<Stage> Stages => Set<Stage>();
+    public DbSet<SubLevel> SubLevels => Set<SubLevel>();
     public DbSet<Passwords> Passwords => Set<Passwords>();
     public DbSet<EmailConfirmations> EmailConfirmations => Set<EmailConfirmations>();
     public DbSet<ResetPasswordTokens> ResetPasswordTokens => Set<ResetPasswordTokens>();

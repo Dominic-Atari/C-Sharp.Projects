@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Create Sublevel</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="page-shell">
+  <ion-card>
+    <ion-card-content>
+      <form [formGroup]="form" (ngSubmit)="save()">
+        <ion-item>
+          <ion-label position="stacked">Stage / Level</ion-label>
+          <ion-select formControlName="stageId" placeholder="Select stage" (ionChange)="onStageChanged()">
+            <ion-select-option value="" disabled>Select a stage</ion-select-option>
+            <ion-select-option *ngFor="let s of stages" [value]="s.stageId">{{ s.name }}</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Sublevel name</ion-label>
+          <ion-input formControlName="name"></ion-input>
+        </ion-item>
+        <div *ngIf="existingSublevels?.length">
+          <p style="margin:8px 0 0;color:var(--ion-color-medium);font-size:13px">Existing sublevels for selected stage: <strong>{{ existingSublevelNames }}</strong></p>
+        </div>
+        <div *ngIf="isDuplicateName()">
+          <p style="margin:6px 0 0;color:var(--ion-color-danger);font-size:13px">A sublevel with this name already exists for the selected stage.</p>
+        </div>
+
+        <ion-item>
+          <ion-label position="stacked">Short label (optional)</ion-label>
+          <ion-input formControlName="label"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Description (optional)</ion-label>
+          <ion-input formControlName="description"></ion-input>
+        </ion-item>
+
+        <div style="display:flex;gap:8px;margin-top:12px">
+          <ion-button type="submit" [disabled]="busy">Create sublevel</ion-button>
+          <ion-button fill="clear" (click)="cancel()">Cancel</ion-button>
+        </div>
+      </form>
+      <div *ngIf="message"><ion-text color="success">{{ message }}</ion-text></div>
+      <div *ngIf="error"><ion-text color="danger">{{ error }}</ion-text></div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

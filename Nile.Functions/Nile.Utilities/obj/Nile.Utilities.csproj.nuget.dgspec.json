@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/dominicobiala/Downloads/C-Sharp.Projects-Nile.Function/NileApp/Nile.Functions/Nile.Utilities/Nile.Utilities.csproj": {}
+    "/Users/dominicobiala/projects/NileApp/BackEnd/Nile.Functions/Nile.Utilities/Nile.Utilities.csproj": {}
   },
   "projects": {
-    "/Users/dominicobiala/Downloads/C-Sharp.Projects-Nile.Function/NileApp/Nile.Functions/Common/Nile.Common/Nile.Common.csproj": {
+    "/Users/dominicobiala/projects/NileApp/BackEnd/Nile.Functions/Common/Nile.Common/Nile.Common.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/dominicobiala/Downloads/C-Sharp.Projects-Nile.Function/NileApp/Nile.Functions/Common/Nile.Common/Nile.Common.csproj",
+        "projectUniqueName": "/Users/dominicobiala/projects/NileApp/BackEnd/Nile.Functions/Common/Nile.Common/Nile.Common.csproj",
         "projectName": "Nile.Common",
-        "projectPath": "/Users/dominicobiala/Downloads/C-Sharp.Projects-Nile.Function/NileApp/Nile.Functions/Common/Nile.Common/Nile.Common.csproj",
+        "projectPath": "/Users/dominicobiala/projects/NileApp/BackEnd/Nile.Functions/Common/Nile.Common/Nile.Common.csproj",
         "packagesPath": "/Users/dominicobiala/.nuget/packages/",
-        "outputPath": "/Users/dominicobiala/Downloads/C-Sharp.Projects-Nile.Function/NileApp/Nile.Functions/Common/Nile.Common/obj/",
+        "outputPath": "/Users/dominicobiala/projects/NileApp/BackEnd/Nile.Functions/Common/Nile.Common/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/dominicobiala/.nuget/NuGet/NuGet.Config"
@@ -44,10 +44,6 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
-            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
-              "target": "Package",
-              "version": "[12.0.1, )"
-            },
             "Azure.Core": {
               "target": "Package",
               "version": "[1.49.0, )"
@@ -93,18 +89,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/10.0.100/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/10.0.101/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "/Users/dominicobiala/Downloads/C-Sharp.Projects-Nile.Function/NileApp/Nile.Functions/Managers/Nile.Managers.Contract.Client/Nile.Managers.Contract.Client.csproj": {
+    "/Users/dominicobiala/projects/NileApp/BackEnd/Nile.Functions/Managers/Nile.Managers.Contract.Client/Nile.Managers.Contract.Client.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/dominicobiala/Downloads/C-Sharp.Projects-Nile.Function/NileApp/Nile.Functions/Managers/Nile.Managers.Contract.Client/Nile.Managers.Contract.Client.csproj",
+        "projectUniqueName": "/Users/dominicobiala/projects/NileApp/BackEnd/Nile.Functions/Managers/Nile.Managers.Contract.Client/Nile.Managers.Contract.Client.csproj",
         "projectName": "Nile.Managers.Contract.Client",
-        "projectPath": "/Users/dominicobiala/Downloads/C-Sharp.Projects-Nile.Function/NileApp/Nile.Functions/Managers/Nile.Managers.Contract.Client/Nile.Managers.Contract.Client.csproj",
+        "projectPath": "/Users/dominicobiala/projects/NileApp/BackEnd/Nile.Functions/Managers/Nile.Managers.Contract.Client/Nile.Managers.Contract.Client.csproj",
         "packagesPath": "/Users/dominicobiala/.nuget/packages/",
-        "outputPath": "/Users/dominicobiala/Downloads/C-Sharp.Projects-Nile.Function/NileApp/Nile.Functions/Managers/Nile.Managers.Contract.Client/obj/",
+        "outputPath": "/Users/dominicobiala/projects/NileApp/BackEnd/Nile.Functions/Managers/Nile.Managers.Contract.Client/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/dominicobiala/.nuget/NuGet/NuGet.Config"
@@ -119,8 +115,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "/Users/dominicobiala/Downloads/C-Sharp.Projects-Nile.Function/NileApp/Nile.Functions/Common/Nile.Common/Nile.Common.csproj": {
-                "projectPath": "/Users/dominicobiala/Downloads/C-Sharp.Projects-Nile.Function/NileApp/Nile.Functions/Common/Nile.Common/Nile.Common.csproj"
+              "/Users/dominicobiala/projects/NileApp/BackEnd/Nile.Functions/Common/Nile.Common/Nile.Common.csproj": {
+                "projectPath": "/Users/dominicobiala/projects/NileApp/BackEnd/Nile.Functions/Common/Nile.Common/Nile.Common.csproj"
               }
             }
           }
@@ -143,7 +139,7 @@
           "dependencies": {
             "AutoMapper": {
               "target": "Package",
-              "version": "[12.0.1, )"
+              "version": "[15.1.1, )"
             },
             "Azure.Messaging.ServiceBus": {
               "target": "Package",
@@ -166,18 +162,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/10.0.100/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/10.0.101/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "/Users/dominicobiala/Downloads/C-Sharp.Projects-Nile.Function/NileApp/Nile.Functions/Nile.Utilities/Nile.Utilities.csproj": {
+    "/Users/dominicobiala/projects/NileApp/BackEnd/Nile.Functions/Nile.Utilities/Nile.Utilities.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/dominicobiala/Downloads/C-Sharp.Projects-Nile.Function/NileApp/Nile.Functions/Nile.Utilities/Nile.Utilities.csproj",
+        "projectUniqueName": "/Users/dominicobiala/projects/NileApp/BackEnd/Nile.Functions/Nile.Utilities/Nile.Utilities.csproj",
         "projectName": "Nile.Utilities",
-        "projectPath": "/Users/dominicobiala/Downloads/C-Sharp.Projects-Nile.Function/NileApp/Nile.Functions/Nile.Utilities/Nile.Utilities.csproj",
+        "projectPath": "/Users/dominicobiala/projects/NileApp/BackEnd/Nile.Functions/Nile.Utilities/Nile.Utilities.csproj",
         "packagesPath": "/Users/dominicobiala/.nuget/packages/",
-        "outputPath": "/Users/dominicobiala/Downloads/C-Sharp.Projects-Nile.Function/NileApp/Nile.Functions/Nile.Utilities/obj/",
+        "outputPath": "/Users/dominicobiala/projects/NileApp/BackEnd/Nile.Functions/Nile.Utilities/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/dominicobiala/.nuget/NuGet/NuGet.Config"
@@ -192,11 +188,11 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "/Users/dominicobiala/Downloads/C-Sharp.Projects-Nile.Function/NileApp/Nile.Functions/Common/Nile.Common/Nile.Common.csproj": {
-                "projectPath": "/Users/dominicobiala/Downloads/C-Sharp.Projects-Nile.Function/NileApp/Nile.Functions/Common/Nile.Common/Nile.Common.csproj"
+              "/Users/dominicobiala/projects/NileApp/BackEnd/Nile.Functions/Common/Nile.Common/Nile.Common.csproj": {
+                "projectPath": "/Users/dominicobiala/projects/NileApp/BackEnd/Nile.Functions/Common/Nile.Common/Nile.Common.csproj"
               },
-              "/Users/dominicobiala/Downloads/C-Sharp.Projects-Nile.Function/NileApp/Nile.Functions/Managers/Nile.Managers.Contract.Client/Nile.Managers.Contract.Client.csproj": {
-                "projectPath": "/Users/dominicobiala/Downloads/C-Sharp.Projects-Nile.Function/NileApp/Nile.Functions/Managers/Nile.Managers.Contract.Client/Nile.Managers.Contract.Client.csproj"
+              "/Users/dominicobiala/projects/NileApp/BackEnd/Nile.Functions/Managers/Nile.Managers.Contract.Client/Nile.Managers.Contract.Client.csproj": {
+                "projectPath": "/Users/dominicobiala/projects/NileApp/BackEnd/Nile.Functions/Managers/Nile.Managers.Contract.Client/Nile.Managers.Contract.Client.csproj"
               }
             }
           }
@@ -217,10 +213,6 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
-            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
-              "target": "Package",
-              "version": "[12.0.1, )"
-            },
             "Azure.Messaging.ServiceBus": {
               "target": "Package",
               "version": "[7.20.1, )"
@@ -243,7 +235,7 @@
             },
             "SixLabors.ImageSharp": {
               "target": "Package",
-              "version": "[3.1.4, )"
+              "version": "[3.1.11, )"
             }
           },
           "imports": [
@@ -262,7 +254,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/10.0.100/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/10.0.101/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/teacher"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Learner Performance</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="perf-page" fullscreen>
+  <div class="hero">
+    <div class="left">
+      <div class="avatar">{{ studentName?.charAt(0) }}</div>
+      <div class="info">
+        <h2 class="name">{{ studentName }}</h2>
+        <div class="avg">Class Average: <strong>{{ average }}%</strong></div>
+      </div>
+    </div>
+    <div class="badge">Level: <span class="lvl">{{ overallLevel }}</span></div>
+  </div>
+
+  <div class="cards">
+    <div class="card" *ngFor="let p of enrichedPerformance" role="button" tabindex="0" (click)="openSubjectTopics(p.subjectId, p.name)">
+      <div class="card-left">
+        <h3>{{ p.name }}</h3>
+        <div class="submeta">Topics: <strong>{{ p.topicCount ?? '—' }}</strong> • Score: <strong>{{ p.score }}%</strong></div>
+      </div>
+        <div class="card-right">
+        <div class="level-chip">{{ p.level }}</div>
+        <ion-progress-bar [value]="p.score / 100" class="perf-bar"></ion-progress-bar>
+        <ion-button size="small" (click)="$event.stopPropagation(); openStudy(p.subjectId, p.name)">Study</ion-button>
+        </div>
+    </div>
+  </div>
+
+  <div class="note">
+    <p>Subject topic counts and scores are derived from backend topic data; click a card to view topic-level details.</p>
+  </div>
+</ion-content>

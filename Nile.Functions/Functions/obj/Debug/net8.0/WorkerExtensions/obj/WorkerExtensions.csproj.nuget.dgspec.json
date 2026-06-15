@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/dominicobiala/Downloads/C-Sharp.Projects-Nile.Function/NileApp/Nile.Functions/Functions/obj/Debug/net8.0/WorkerExtensions/WorkerExtensions.csproj": {}
+    "/Users/dominicobiala/projects/NileApp/BackEnd/Nile.Functions/Functions/obj/Debug/net8.0/WorkerExtensions/WorkerExtensions.csproj": {}
   },
   "projects": {
-    "/Users/dominicobiala/Downloads/C-Sharp.Projects-Nile.Function/NileApp/Nile.Functions/Functions/obj/Debug/net8.0/WorkerExtensions/WorkerExtensions.csproj": {
+    "/Users/dominicobiala/projects/NileApp/BackEnd/Nile.Functions/Functions/obj/Debug/net8.0/WorkerExtensions/WorkerExtensions.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/dominicobiala/Downloads/C-Sharp.Projects-Nile.Function/NileApp/Nile.Functions/Functions/obj/Debug/net8.0/WorkerExtensions/WorkerExtensions.csproj",
+        "projectUniqueName": "/Users/dominicobiala/projects/NileApp/BackEnd/Nile.Functions/Functions/obj/Debug/net8.0/WorkerExtensions/WorkerExtensions.csproj",
         "projectName": "Microsoft.Azure.Functions.Worker.Extensions",
-        "projectPath": "/Users/dominicobiala/Downloads/C-Sharp.Projects-Nile.Function/NileApp/Nile.Functions/Functions/obj/Debug/net8.0/WorkerExtensions/WorkerExtensions.csproj",
+        "projectPath": "/Users/dominicobiala/projects/NileApp/BackEnd/Nile.Functions/Functions/obj/Debug/net8.0/WorkerExtensions/WorkerExtensions.csproj",
         "packagesPath": "/Users/dominicobiala/.nuget/packages/",
-        "outputPath": "/Users/dominicobiala/Downloads/C-Sharp.Projects-Nile.Function/NileApp/Nile.Functions/Functions/obj/Debug/net8.0/WorkerExtensions/obj/",
+        "outputPath": "/Users/dominicobiala/projects/NileApp/BackEnd/Nile.Functions/Functions/obj/Debug/net8.0/WorkerExtensions/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/dominicobiala/.nuget/NuGet/NuGet.Config"
@@ -80,7 +80,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/10.0.100/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/10.0.101/RuntimeIdentifierGraph.json"
         }
       }
     }

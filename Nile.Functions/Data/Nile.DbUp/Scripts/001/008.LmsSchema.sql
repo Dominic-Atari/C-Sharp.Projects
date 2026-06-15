@@ -96,13 +96,17 @@ IF OBJECT_ID('dbo.Subjects', 'U') IS NULL
 BEGIN
     CREATE TABLE dbo.Subjects (
         SubjectId UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID() CONSTRAINT PK_Subjects PRIMARY KEY,
+        SchoolId UNIQUEIDENTIFIER NOT NULL,
+        -- Soft-delete flag
+        IsDeleted BIT NOT NULL CONSTRAINT DF_Subjects_IsDeleted DEFAULT (0),
         Name NVARCHAR(200) NOT NULL,
         Stage INT NOT NULL,
-        Description NVARCHAR(1000) NULL
+        Description NVARCHAR(1000) NULL,
+        DeletedAt DATETIME2 NULL
     );
 END
-IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'IX_Subjects_Name_Stage')
-    CREATE UNIQUE NONCLUSTERED INDEX IX_Subjects_Name_Stage ON dbo.Subjects (Name, Stage);
+IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'IX_Subjects_School_Name_Stage')
+    CREATE UNIQUE NONCLUSTERED INDEX IX_Subjects_School_Name_Stage ON dbo.Subjects (SchoolId, Name, Stage);
 
 ------------------------------------------------------------
 -- TeacherSubject assignments

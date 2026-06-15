@@ -4,17 +4,17 @@ namespace Nile.Managers.Admin;
 
 public interface IUserManager
 {
-    Task<UsernameSuggestionsResponse> GenerateUsernameSuggestions(UsernameSuggestionsRequest request);
-
     Task<UserContextResponse> Login(LoginRequest request);
 
-    // General store operation for user-related updates
-    Task<StoreUserResponseBase> Store(StoreUserRequestBase request);
+    Task<UsernameSuggestionsResponse> GenerateUsernameSuggestions(UsernameSuggestionsRequest request);
 
-    // Specific overloads used by clients
     Task<StoreUserResponseBase> Store(CreateUserProfileRequest request);
+
+    Task<StoreUserResponseBase> Store(UpdateUserProfileRequest request);
 
     Task<StoreUserResponseBase> Store(StoreUserProfileImageRequest request);
 
     Task<StoreUserResponseBase> Store(DeleteUserProfileImageRequest request);
+
+    Task<StoreUserResponseBase> Store(StoreNotificationPreferencesRequest request);
 }

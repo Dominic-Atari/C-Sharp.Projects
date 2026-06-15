@@ -175,7 +175,7 @@ public class AuthFunction
         }
 
         var res = req.CreateResponse(HttpStatusCode.Created);
-        await res.WriteAsJsonAsync(new ApiResponse<AuthResponse>(new AuthResponse(token, userId, schoolId, username, roles, redirectUrl), null));
+        await res.WriteAsJsonAsync(new ApiResponse<AuthResponse>(new AuthResponse(token, userId, schoolId, username, roles, school.SchoolName, school.ImageUrl, redirectUrl), null));
         return res;
     }
 
@@ -230,9 +230,22 @@ public class AuthFunction
             redirectUrl = "/admin";
         }
 
+        // attempt to resolve school name/logo for convenience in UI
+        string? schoolName = null;
+        string? schoolLogo = null;
+        if (schoolId.HasValue)
+        {
+            var s = await _db.Schools.FirstOrDefaultAsync(sc => sc.SchoolId == schoolId.Value);
+            if (s != null)
+            {
+                schoolName = s.SchoolName;
+                schoolLogo = s.ImageUrl;
+            }
+        }
+
         var res = req.CreateResponse(HttpStatusCode.OK);
         await res.WriteAsJsonAsync(new ApiResponse<AuthResponse>(
-            new AuthResponse(token, user.Id, schoolId, user.Username, roles, redirectUrl),
+            new AuthResponse(token, user.Id, schoolId, user.Username, roles, schoolName, schoolLogo, redirectUrl),
             null));
         return res;
     }

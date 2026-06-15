@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Manage Students</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="assignStageToSelected()" [disabled]="selected.size===0">Assign stage</ion-button>
+      <ion-button (click)="editSelected()" [disabled]="selected.size !== 1">Edit selected</ion-button>
+      <ion-button color="danger" (click)="deleteSelected()" [disabled]="selected.size===0">Delete selected</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="page-root">
+  <div *ngIf="loading" class="loading-wrap">Loading…</div>
+  <div *ngIf="!loading">
+    <ng-container *ngFor="let key of groupedKeys">
+      <div class="group">
+        <h3 class="group-title">{{ stageName(key) }}</h3>
+        <ion-list>
+          <ion-item *ngFor="let s of grouped[key]">
+            <ion-checkbox slot="start" [checked]="selected.has(s.userId)" (ionChange)="toggleSelect(s.userId)"></ion-checkbox>
+            <ion-label>
+              <h4>{{ s.firstName || '' }} {{ s.lastName || '' }} <small class="muted">{{ s.username }}</small></h4>
+            </ion-label>
+            <!-- per-student edit button removed; use header 'Edit selected' for single edits -->
+          </ion-item>
+        </ion-list>
+      </div>
+    </ng-container>
+  </div>
+</ion-content>
